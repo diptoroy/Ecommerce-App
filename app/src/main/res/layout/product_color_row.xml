@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="color"
+            type="com.ddev.myapplication.model.product.ColorModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/color_backgorund"
+        android:layout_margin="4dp">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

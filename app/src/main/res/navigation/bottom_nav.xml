@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ddev.myapplication.view.fragment.bottomMenu.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.ddev.myapplication.view.fragment.bottomMenu.AccountFragment"
+        android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/favoriteFragment3"
+        android:name="com.ddev.myapplication.view.fragment.bottomMenu.FavoriteFragment"
+        android:label="FavoriteFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.ddev.myapplication.view.fragment.bottomMenu.CartFragment"
+        android:label="CartFragment" />
+</navigation>

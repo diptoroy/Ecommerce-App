@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Ecommerce</string>
+
+    <string name="onBoardingTitle">Lorem Ipsum</string>
+    <string name="onBoardingDesc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown.</string>
+
+    <!-- login-->
+    <string name="loginText">Sign In</string>
+    <string name="signInEmailHint">Enter your Email</string>
+    <string name="signInPasswordHint">Enter your Password</string>
+    <string name="signInForgotPassword">Forgot Password?</string>
+    <string name="signInRememberme">Remember me</string>
+    <string name="newAccount">Don\'t have an account? <b>Sign up</b></string>
+
+    <!-- signup-->
+    <string name="signupText">Sign Up</string>
+    <string name="signUpNameText">Enter your Full Name</string>
+    <string name="signUpPhoneText">Enter your Phone number</string>
+    <string name="backLogin">Create Account before? <b>Sign In</b></string>
+
+    <!-- forgot password-->
+    <string name="forgot_password_text">Forgot Password</string>
+    <string name="forgot_submit_btn">Submit</string>
+
+    <!-- toolbar-->
+    <string name="toolbar_title">Gadget Gang</string>
+
+    <string name="category_title">Choose Category</string>
+    <string name="category_1">Smartphone</string>
+    <string name="category_2">Computer</string>
+    <string name="category_3">Smartwatch</string>
+    <string name="category_4">Headphone</string>
+    <string name="category_5">Photography</string>
+    <string name="category_6">Video Game</string>
+    <string name="category_7">Accessories</string>
+    <string name="trending_title">Trending</string>
+
+    <!--product details-->
+    <string name="product_name">Beats solo 3</string>
+    <string name="product_price">$280</string>
+    <string name="product_rating">4.6</string>
+    <string name="product_color">Select Color</string>
+    <string name="product_details">Color</string>
+    <string name="product_specification">Specification</string>
+    <string name="productDesc">Beats Solo3 Wireless on-ear headphones immerse you in rich, award-winning sound, everywhere you want to go</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

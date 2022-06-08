@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.ui.AddressDetailsFragment">
+
+        <include
+            android:id="@+id/include3"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/nameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Name"
+            android:background="@drawable/login_edit_text_background"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/gothambook"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include3" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/phoneText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/login_edit_text_background"
+            android:hint="Phone"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView252" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView252"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Phone no"
+            android:fontFamily="@font/gothambook"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/nameText"
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/houseText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/login_edit_text_background"
+            android:padding="15dp"
+            android:hint="Street No"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView253" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView253"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Street or house no"
+            android:fontFamily="@font/gothambook"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/phoneText"
+            app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/cityText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/login_edit_text_background"
+            android:padding="15dp"
+            android:hint="City"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView254" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView254"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="City"
+            android:fontFamily="@font/gothambook"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/houseText"
+            app:layout_constraintTop_toBottomOf="@+id/houseText" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/addressText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/login_edit_text_background"
+            android:padding="15dp"
+            android:hint="Address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView255" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView255"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Address"
+            android:fontFamily="@font/gothambook"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/cityText"
+            app:layout_constraintTop_toBottomOf="@+id/cityText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ADD"
+            android:fontFamily="@font/gothammedium"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:backgroundTint="#FF5353"
+            android:background="@drawable/login_btn_background"
+            app:layout_constraintEnd_toEndOf="@+id/addressText"
+            app:layout_constraintStart_toStartOf="@+id/addressText"
+            app:layout_constraintTop_toBottomOf="@+id/addressText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

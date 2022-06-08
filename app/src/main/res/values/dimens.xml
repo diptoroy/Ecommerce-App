@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="onBoardingTitle">17sp</dimen>
+    <dimen name="onBoardingDesc">13sp</dimen>
+
+    <dimen name="loginTextSize">27sp</dimen>
+    <dimen name="login_editext_border_margin">22dp</dimen>
+    <dimen name="login_editext_border_margin_top">8dp</dimen>
+    <dimen name="login_editext_border_padding">15dp</dimen>
+    <dimen name="login_editext_size">17sp</dimen>
+    <dimen name="login_editext_drawable_padding">5dp</dimen>
+    <dimen name="login_editext_margin_top">16dp</dimen>
+    <dimen name="product_name_text">15sp</dimen>
+
+    <dimen name="spec_details_top">5dp</dimen>
+    <dimen name="spec_details_text">10sp</dimen>
+</resources>

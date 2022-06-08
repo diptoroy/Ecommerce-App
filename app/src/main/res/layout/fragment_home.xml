@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fragment_background"
+        tools:context=".view.fragment.bottomMenu.HomeFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_editext_border_margin_top"
+            android:layout_marginTop="@dimen/login_editext_border_margin_top"
+            android:text="@string/category_title"
+            android:textSize="@dimen/login_editext_size"
+            app:fontFamily="@font/gothammedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoryRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/login_editext_border_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/trendingTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trending_title"
+            android:textSize="@dimen/login_editext_size"
+            app:fontFamily="@font/gothammedium"
+            android:layout_marginStart="@dimen/login_editext_border_margin_top"
+            android:layout_marginTop="@dimen/login_editext_margin_top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categoryRecyclerView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trendingRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/login_editext_border_margin_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trendingTextview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
