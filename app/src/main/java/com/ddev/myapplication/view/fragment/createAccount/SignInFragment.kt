@@ -29,8 +29,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(FragmentSignInBinding
     var isAllCheck: Boolean = false
     lateinit var loadingDialog: LoadingDialog
 
-
-
     private val signInViewModel: AuthViewModel by navGraphViewModels(R.id.nav_graph) {
         SavedStateViewModelFactory(
             requireActivity().application,
@@ -87,6 +85,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(FragmentSignInBinding
 //                                snack.show()
                                 Log.i("Auth", "onCreate: .....error")
                             }
+                            else -> {}
                         }
                     }
                 }
@@ -100,7 +99,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(FragmentSignInBinding
         var email = fragmentBinding.loginEmailText.text.toString()
         var password = fragmentBinding.loginPasswordText.text.toString()
         if (email.isEmpty()){
-            fragmentBinding.loginEmailText.error = "Please enter your email email!";
+            fragmentBinding.loginEmailText.error = "Please enter your email!";
             return false
         }
 

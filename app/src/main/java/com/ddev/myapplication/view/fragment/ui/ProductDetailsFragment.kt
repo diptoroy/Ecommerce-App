@@ -8,6 +8,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.ColorAdapter
 import com.ddev.myapplication.adapter.ProductViewPagerAdapter
 import com.ddev.myapplication.adapter.ViewPagerAdapter
@@ -18,6 +19,7 @@ import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
 import com.ddev.myapplication.util.ClickListener
 import com.ddev.myapplication.util.ColorClickListener
+import com.ddev.myapplication.util.CustomAlertDialog
 import com.ddev.myapplication.util.ViewPager2PageTransformation
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -37,11 +39,6 @@ class ProductDetailsFragment :
     private val colorAdapter by lazy {
         ColorAdapter(this)
     }
-//    private lateinit var colorClick:ColorClickListener
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        colorClick = parentFragment as ProductDetailsFragment
-//    }
 
     var list = ArrayList<ColorModel>()
     val dArray = arrayOf(
@@ -146,9 +143,13 @@ class ProductDetailsFragment :
             addToCartDb.set(addToCartModelData).addOnCompleteListener { task->
                 if (task.isSuccessful){
                     Log.i("addToCart", "buildUi: item is add to cart")
+                    var successDialog = CustomAlertDialog(requireActivity(),fragmentBinding.mainRootView)
+                    successDialog.showSuccess(requireActivity().getString(R.string.add_to_cart_success_title),requireActivity().getString(R.string.add_to_cart_success_sub_title))
                 }
             }.addOnFailureListener {
                 Log.i("addToCart", "buildUi: Failed to add to cart")
+                var successDialog = CustomAlertDialog(requireActivity(),fragmentBinding.mainRootView)
+                successDialog.showFailResponse(requireActivity().getString(R.string.add_to_cart_fail_title),requireActivity().getString(R.string.add_to_cart_fail_sub_title))
             }
         }
     }

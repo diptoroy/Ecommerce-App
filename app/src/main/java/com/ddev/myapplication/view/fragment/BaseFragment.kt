@@ -28,4 +28,5 @@ abstract class BaseFragment<T: ViewDataBinding>
     }
 
 
+
 }

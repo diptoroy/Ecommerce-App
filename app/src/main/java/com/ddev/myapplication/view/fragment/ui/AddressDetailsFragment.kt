@@ -12,12 +12,25 @@ import com.ddev.myapplication.databinding.FragmentAddressDetailsBinding
 import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.AddressModel
 import com.ddev.myapplication.view.fragment.BaseFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding>(FragmentAddressDetailsBinding::inflate) {
+
+    private lateinit var db: FirebaseFirestore
+    private lateinit var currentUser: FirebaseUser
+    private lateinit var currentUserId: String
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var navController = findNavController()
+
+        db = FirebaseFirestore.getInstance()
+        currentUser = FirebaseAuth.getInstance().currentUser!!
+        currentUserId = currentUser.uid
 
         val bundle = arguments
         if (bundle == null) {
@@ -35,6 +48,13 @@ class AddressDetailsFragment : BaseFragment<FragmentAddressDetailsBinding>(Fragm
             var cityName = fragmentBinding.cityText.text.toString().trim()
             var addressDetails = fragmentBinding.addressText.text.toString().trim()
             var address = AddressModel(name,phone,streetNo,cityName,addressDetails)
+            db.collection("Users").document(currentUserId).collection("Address").add(address).addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    Log.i("address", "buildUi: address added")
+                }
+            }.addOnFailureListener { it->
+                Log.i("address", "buildUi: address not added")
+            }
             //var cart = AddToCartModel("","","",0,0,0)
             var action = AddressDetailsFragmentDirections.actionAddressDetailsFragmentToAddressSelectFragment(
                 cart,amount,address)

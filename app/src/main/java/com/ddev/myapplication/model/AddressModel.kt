@@ -5,9 +5,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AddressModel(
-    var name:String,
-    var phone:String,
-    var streetHouseNo:String,
-    var cityName:String,
-    var addressDetail:String
+    var name:String? = null,
+    var phone:String? = null,
+    var streetHouseNo:String? = null,
+    var cityName:String? = null,
+    var addressDetail:String? = null
 ):Parcelable

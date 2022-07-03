@@ -3,6 +3,7 @@ package com.ddev.myapplication.view.fragment.bottomMenu
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.R
@@ -11,6 +12,7 @@ import com.ddev.myapplication.databinding.FragmentCartBinding
 import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.AddressModel
 import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.util.LoadingDialog
 import com.ddev.myapplication.util.PriceClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.delay
 import kotlin.math.log
 
 
@@ -34,12 +37,16 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
     private lateinit var currentUserId: String
     private lateinit var dbRef: DocumentReference
 
+    lateinit var loadingDialog: LoadingDialog
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         db = FirebaseFirestore.getInstance()
         currentUser = FirebaseAuth.getInstance().currentUser!!
         currentUserId = currentUser.uid
+
+        loadingDialog = LoadingDialog(requireContext())
 
 
 //        list.clear()
@@ -95,8 +102,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         )
         fragmentBinding.cartRecyclerView.setHasFixedSize(true)
         fragmentBinding.cartRecyclerView.adapter = adapter
-
-
     }
 
     override fun onClick(item: AddToCartModel, position: Int) {

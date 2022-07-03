@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.SavedStateViewModelFactory
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.R
@@ -19,12 +22,22 @@ import com.ddev.myapplication.model.product.ProductViewPagerModel
 import com.ddev.myapplication.util.ClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
+import com.ddev.myapplication.view.viewmodel.AuthViewModel
+import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.collect
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),ClickListener<ProductModel> {
+    private val productViewModel: DataReceiveViewModel by navGraphViewModels(R.id.nav_graph) {
+        SavedStateViewModelFactory(
+            requireActivity().application,
+            requireParentFragment()
+        )
+    }
+
     private val categoryAdapter by lazy {
         CategoryAdapter()
     }
@@ -83,6 +96,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 trendingAdapter.notifyDataSetChanged()
             }
         }
+
+
     }
 
     private fun showTrendingProducts() {

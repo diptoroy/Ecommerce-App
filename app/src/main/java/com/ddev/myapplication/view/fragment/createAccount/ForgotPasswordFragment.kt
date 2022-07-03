@@ -58,6 +58,7 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(Fragm
                             loadingDialog.dismiss()
                             Toast.makeText(requireContext(),"Error",Toast.LENGTH_SHORT).show()
                         }
+                        else -> {}
                     }
                 }
             }

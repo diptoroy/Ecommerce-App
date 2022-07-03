@@ -103,6 +103,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
                                             "onCreate: .....Success"
                                         )
                                         is State.Error -> Log.i("UserInfo", "onCreate: .....Error")
+                                        else -> {}
                                     }
                                 }
                                 var action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
@@ -113,6 +114,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
                                 Toast.makeText(requireContext(),"Error",Toast.LENGTH_SHORT).show()
                                 Log.i("Auth", "onCreate: .....error")
                             }
+                            else -> {}
                         }
                     }
                 }

@@ -3,6 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/add_to_cart_row.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/custom_dialog_layout.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_account.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_address_and_payment.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_address_details.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_check_out.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_check_out_success.xml" value="0.11041666666666666" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_home.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_order.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_product_details.xml" value="0.25" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/order_group_row.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/order_item_row.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/order_row.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/order_view_row.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/simple_toolbar.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/toolbar.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/trending_row.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/personal/AndroidStudioProjects/Ecommerce/app/src/main/res/drawable-v24/ic_pagetwo.xml" value="0.1" />
         <entry key="..\:/Users/personal/AndroidStudioProjects/Ecommerce/app/src/main/res/drawable/bottom_background.xml" value="0.148" />
         <entry key="..\:/Users/personal/AndroidStudioProjects/Ecommerce/app/src/main/res/drawable/bottom_backgrounf.xml" value="0.106" />
@@ -65,7 +82,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

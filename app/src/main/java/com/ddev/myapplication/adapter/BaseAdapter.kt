@@ -42,4 +42,5 @@ abstract class BaseAdapter<I : Any, B : ViewDataBinding>:
     override fun getItemViewType(position: Int): Int {
         return super.getItemViewType(position)
     }
+
 }
