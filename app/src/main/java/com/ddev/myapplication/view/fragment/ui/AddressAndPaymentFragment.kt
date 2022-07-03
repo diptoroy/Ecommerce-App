@@ -117,7 +117,11 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
                         db.collection("Users").document(currentUserId).collection("AddToCart").addSnapshotListener { value, error ->
                             for (doc: DocumentChange in value!!.documentChanges) {
                                 var cartId = doc.document.id
-                                Notification.buildNotification(requireContext(),"Your order has been placed","Your order id $orderId.You have to pay $$amount.Thank you.")
+                                val pendingIntent = NavDeepLinkBuilder(requireContext())
+                                    .setGraph(R.navigation.nav_graph)
+                                    .setDestination(R.id.homePageFragment)
+                                    .createPendingIntent()
+                                Notification.buildNotification(requireContext(),"Your order has been placed","Your order id $orderId.You have to pay $$amount.Thank you.",pendingIntent)
                                 db.collection("Users").document(currentUserId).collection("AddToCart").document(cartId).delete()
                             }
                         }

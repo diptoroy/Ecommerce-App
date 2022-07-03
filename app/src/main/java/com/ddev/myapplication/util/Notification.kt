@@ -31,13 +31,15 @@ object Notification {
     }
 
 
-    fun buildNotification(context: Context,title: String,contentText: String){
+    fun buildNotification(context: Context,title: String,contentText: String,intent: PendingIntent){
 
         val builder = NotificationCompat.Builder(context,CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setContentTitle(title)
             .setContentText(contentText)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(intent)
+            .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(context)){
             notify(NOTIFICATION_ID,builder.build())

@@ -44,11 +44,11 @@ class OrderGroupAdapter (var clickListener: ClickListener<OrderModel>) : BaseAda
 
         db.collection("Users").document(currentUserId).collection("Order").addSnapshotListener { value, error ->
             for (doc: DocumentChange in value!!.documentChanges) {
-                orderGroup.add(doc.document.toObject(OrderModel::class.java))
-                orderGroup.forEach {
-                    it.orderItem?.let { it1 -> adapter.addItems(it1) }
+                var docId = doc.document.id
+                var orderId = orderGroup[position].orderId
+                orderGroup.forEach {modelData ->
+                    modelData.orderItem?.let { it1 -> adapter.addItems(it1) }
                 }
-
             }
         }
         setUpRecyclerView(holder)
