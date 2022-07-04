@@ -66,18 +66,17 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             }
 
 
-
         addressAndPayment()
 
     }
 
     private fun addressAndPayment() {
-        fragmentBinding.buyNowBtn.setOnClickListener {
-            var navController = Navigation.findNavController(requireActivity(),R.id.fragmentContainerView)
-            var address = AddressModel("","","","","")
-            var action = HomePageFragmentDirections.actionHomePageFragmentToAddressAndPaymentFragment(list.toTypedArray(),totalPrice(),address)
-            navController.navigate(action)
-        }
+            fragmentBinding.buyNowBtn.setOnClickListener {
+                var navController = Navigation.findNavController(requireActivity(),R.id.fragmentContainerView)
+                var address = AddressModel("","","","","")
+                var action = HomePageFragmentDirections.actionHomePageFragmentToAddressAndPaymentFragment(list.toTypedArray(),totalPrice(),address)
+                navController.navigate(action)
+            }
     }
 
     private fun totalPrice():Int {

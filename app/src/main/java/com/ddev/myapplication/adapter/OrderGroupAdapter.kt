@@ -44,10 +44,9 @@ class OrderGroupAdapter (var clickListener: ClickListener<OrderModel>) : BaseAda
 
         db.collection("Users").document(currentUserId).collection("Order").addSnapshotListener { value, error ->
             for (doc: DocumentChange in value!!.documentChanges) {
-                var docId = doc.document.id
-                var orderId = orderGroup[position].orderId
                 orderGroup.forEach {modelData ->
-                    modelData.orderItem?.let { it1 -> adapter.addItems(it1) }
+                    modelData.orderItem?.let { items -> adapter.addItems(items) }
+                    Log.i("modelData", "onBindViewHolder: $modelData")
                 }
             }
         }
@@ -55,9 +54,6 @@ class OrderGroupAdapter (var clickListener: ClickListener<OrderModel>) : BaseAda
     }
 
     private fun setUpRecyclerView(holder: BaseAdapter.Companion.BaseViewHolder<OrderGroupRowBinding>) {
-        db = FirebaseFirestore.getInstance()
-        currentUser = FirebaseAuth.getInstance().currentUser!!
-        currentUserId = currentUser.uid
         holder.binding.orderItemRecyclerView.layoutManager = LinearLayoutManager(
             EcommerceApp.getApp()!!.applicationContext,
             LinearLayoutManager.VERTICAL, false

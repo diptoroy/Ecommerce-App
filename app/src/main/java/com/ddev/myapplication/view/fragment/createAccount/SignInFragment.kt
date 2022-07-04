@@ -2,10 +2,7 @@ package com.ddev.myapplication.view.fragment.createAccount
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -18,10 +15,8 @@ import com.ddev.myapplication.util.State
 import com.ddev.myapplication.util.Validation
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.viewmodel.AuthViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.flow.collect
 
 class SignInFragment : BaseFragment<FragmentSignInBinding>(FragmentSignInBinding::inflate) {
@@ -73,6 +68,17 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(FragmentSignInBinding
                             is State.Success -> {
                                 Log.i("Auth", "onCreate: .....success")
                                 loadingDialog.dismiss()
+                                //Token
+
+                                FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                                    if (task.isSuccessful){
+                                        var newToken = task.result
+                                        signInViewModel.getToken(newToken)
+                                    }else{
+
+                                    }
+
+                                }
                                 var action =
                                     SignInFragmentDirections.actionSignInFragmentToHomePageFragment()
                                 navController.navigate(action)

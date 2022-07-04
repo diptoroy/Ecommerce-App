@@ -21,7 +21,7 @@ class AuthViewModel : ViewModel() {
     private var auth: FirebaseAuth = Firebase.auth
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private lateinit var ref: DocumentReference
-    private lateinit var userId: String
+    private var userId: String = auth.currentUser!!.uid
 
     private val _signUpState: MutableStateFlow<State?> = MutableStateFlow(null)
     val signUpState: StateFlow<State?> = _signUpState
@@ -34,6 +34,9 @@ class AuthViewModel : ViewModel() {
 
     private val _forgotPasswordState: MutableStateFlow<State?> = MutableStateFlow(null)
     val forgotPasswordState: StateFlow<State?> = _forgotPasswordState
+
+    private val _tokenState: MutableStateFlow<State?> = MutableStateFlow(null)
+    val tokenState: StateFlow<State?> = _tokenState
 
     fun getSignUp(email: String, password: String) = viewModelScope.launch {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -58,7 +61,7 @@ class AuthViewModel : ViewModel() {
     }
 
     fun getUserInfo(userInfo: UserInfoModel) {
-        userId = auth.currentUser!!.uid
+
         ref = db.collection("Users").document(userId)
         ref.set(userInfo).addOnSuccessListener {
             _userInfoState.value = State.Loading
@@ -78,6 +81,18 @@ class AuthViewModel : ViewModel() {
             }
         }.addOnFailureListener {
             _forgotPasswordState.value = State.Error
+        }
+    }
+
+    fun getToken(token: String){
+        ref = db.collection("Users").document(userId)
+        ref.update("userToken",token).addOnSuccessListener {
+            _tokenState.value = State.Loading
+            if (token != null) {
+                _tokenState.value = State.Success
+            }
+        }.addOnFailureListener {
+            _tokenState.value = State.Error
         }
     }
 

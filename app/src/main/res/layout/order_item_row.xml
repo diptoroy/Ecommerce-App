@@ -25,6 +25,7 @@
             android:id="@+id/imageView9"
             android:layout_width="@dimen/size_70dp"
             android:layout_height="@dimen/size_70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:urlImage="@{orderItemModel.productImage}" />

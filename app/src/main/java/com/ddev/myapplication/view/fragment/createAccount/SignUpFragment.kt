@@ -90,7 +90,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding
                                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
                                 val accountCreatedTime = accountCreated.format(formatter)
                                 var userMap =
-                                    UserInfoModel(fullName, email, phone, accountCreatedTime)
+                                    UserInfoModel(fullName = fullName, email = email, phone = phone, accountCreatedTime = accountCreatedTime)
                                 signUpViewModel.getUserInfo(userMap)
                                 signUpViewModel.userInfoState.collect {
                                     when (it) {
