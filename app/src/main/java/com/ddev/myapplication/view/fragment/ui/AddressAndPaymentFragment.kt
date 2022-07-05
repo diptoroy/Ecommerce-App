@@ -1,8 +1,6 @@
 package com.ddev.myapplication.view.fragment.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
@@ -19,15 +17,13 @@ import com.ddev.myapplication.model.AddressModel
 import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.model.PaymentMethodModel
 import com.ddev.myapplication.util.ClickListener
-import com.ddev.myapplication.util.Notification
+import com.ddev.myapplication.util.NotificationService
 import com.ddev.myapplication.util.PriceClickListener
-import com.ddev.myapplication.view.activiry.MainActivity
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.internal.InternalTokenProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -51,7 +47,7 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var navController = findNavController()
-        Notification.createNotificationChannel(requireContext())
+        NotificationService.createNotificationChannel(requireContext())
 
         list.add(PaymentMethodModel(ResourcesCompat.getDrawable(resources, R.drawable.cod, null)!!,"Cash On Delivery"))
         list.add(PaymentMethodModel(ResourcesCompat.getDrawable(resources, R.drawable.wallet, null)!!,"Online Payment"))
@@ -121,7 +117,7 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
                                     .setGraph(R.navigation.nav_graph)
                                     .setDestination(R.id.homePageFragment)
                                     .createPendingIntent()
-                                Notification.buildNotification(requireContext(),"Your order has been placed","Your order id $orderId.You have to pay $$amount.Thank you.",pendingIntent)
+                                NotificationService.buildNotification(requireContext(),"Your order has been placed","Your order id $orderId.You have to pay $$amount.Thank you.",pendingIntent)
                                 db.collection("Users").document(currentUserId).collection("AddToCart").document(cartId).delete()
                             }
                         }

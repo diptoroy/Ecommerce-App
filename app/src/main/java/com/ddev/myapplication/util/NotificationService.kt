@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import com.ddev.myapplication.R
 import com.ddev.myapplication.view.activiry.MainActivity
 
-object Notification {
+object NotificationService {
     private const val CHANNEL_ID = "Notification Channel"
     private const val NOTIFICATION_ID = 101
 
