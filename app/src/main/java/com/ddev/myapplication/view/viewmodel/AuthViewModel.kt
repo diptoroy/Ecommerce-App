@@ -6,9 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ddev.myapplication.model.UserInfoModel
+import com.ddev.myapplication.model.product.ProductModel
 import com.ddev.myapplication.util.State
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -84,9 +86,9 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun getToken(token: String){
+    fun getToken(token: String) {
         ref = db.collection("Users").document(userId)
-        ref.update("userToken",token).addOnSuccessListener {
+        ref.update("userToken", token).addOnSuccessListener {
             _tokenState.value = State.Loading
             if (token != null) {
                 _tokenState.value = State.Success
@@ -97,5 +99,6 @@ class AuthViewModel : ViewModel() {
     }
 
     fun getSignOut() = auth.signOut()
+
 }
 

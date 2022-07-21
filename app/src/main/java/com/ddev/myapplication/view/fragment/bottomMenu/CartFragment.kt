@@ -48,11 +48,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
 
         loadingDialog = LoadingDialog(requireContext())
 
-
-//        list.clear()
-//        list.add(AddToCartModel("1011",getString(R.string.product_name),"Black","Black",1,280,280))
-//        list.add(AddToCartModel("1011",getString(R.string.product_name),"Red","Red",1,230,230))
-
         setUpRecyclerView()
         //adapter.addItems(list)
         list.clear()
@@ -104,7 +99,19 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
     }
 
     override fun onClick(item: AddToCartModel, position: Int) {
-        //db.collection()
+        list.clear()
+        loadingDialog.show()
+        db.collection("Users").document(currentUserId).collection("AddToCart").document(item.productId!!)
+            .delete()
+            .addOnCompleteListener {
+                loadingDialog.dismiss()
+                adapter.notifyItemRemoved(position)
+                totalPrice()
+                adapter.notifyDataSetChanged()
+                Log.d("delete success", "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e ->
+                loadingDialog.dismiss()
+                Log.w("delete failed", "Error deleting document", e) }
 
     }
 

@@ -16,18 +16,17 @@ class DataReceiveViewModel: ViewModel() {
 
     private val _productViewState: MutableStateFlow<List<ProductModel>?> = MutableStateFlow(null)
     val productViewState: StateFlow<List<ProductModel>?> = _productViewState
+    private var productList = ArrayList<ProductModel>()
 
-    fun getAllProduct():MutableStateFlow<List<ProductModel>?> {
+    fun getAllProduct() {
         db.collection("Products").addSnapshotListener { value, error ->
-            var productList = ArrayList<ProductModel>()
+            productList.clear()
             for (doc: DocumentChange in value!!.documentChanges){
-                if (value != null) {
-                    productList.add(doc.document.toObject(ProductModel::class.java))
-                    _productViewState.value = productList
-                }
+                productList.add(doc.document.toObject(ProductModel::class.java))
+
             }
+            _productViewState.value = productList
         }
-        return _productViewState
     }
 
 }

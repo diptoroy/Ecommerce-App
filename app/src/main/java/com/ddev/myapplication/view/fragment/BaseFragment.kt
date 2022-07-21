@@ -10,9 +10,7 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment<T: ViewDataBinding>
     (private val bindingInflater:(inflater: LayoutInflater) -> T): Fragment() {
 
-
-
-    lateinit var _fragmentBinding:T
+    private lateinit var _fragmentBinding:T
     val fragmentBinding:T
         get() = _fragmentBinding as T
 
@@ -26,7 +24,5 @@ abstract class BaseFragment<T: ViewDataBinding>
             throw IllegalArgumentException("Binding cannot be null")
         return fragmentBinding.root
     }
-
-
 
 }

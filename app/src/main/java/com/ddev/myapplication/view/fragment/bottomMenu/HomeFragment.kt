@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.SavedStateViewModelFactory
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
@@ -28,16 +29,16 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.collect
+import kotlin.math.log
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),ClickListener<ProductModel> {
-    private val productViewModel: DataReceiveViewModel by navGraphViewModels(R.id.nav_graph) {
+    private val productViewModel: DataReceiveViewModel by navGraphViewModels(R.id.bottom_nav) {
         SavedStateViewModelFactory(
             requireActivity().application,
             requireParentFragment()
         )
     }
-
     private val categoryAdapter by lazy {
         CategoryAdapter()
     }
@@ -68,6 +69,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         categoryAdapter.addItems(categoryList)
        // showTrendingProducts()
 
+
+
     }
 
 
@@ -88,15 +91,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
         productList.clear()
-        db.collection("Products").addSnapshotListener { value, error ->
-            for (doc: DocumentChange in value!!.documentChanges){
-                productList.add(doc.document.toObject(ProductModel::class.java))
-                Log.i("productList", "showTrendingProducts: ${doc.document}")
-                trendingAdapter.addItems(productList)
-                trendingAdapter.notifyDataSetChanged()
+//        db.collection("Products").addSnapshotListener { value, error ->
+//            for (doc: DocumentChange in value!!.documentChanges){
+//                productList.add(doc.document.toObject(ProductModel::class.java))
+//                Log.i("productList", "showTrendingProducts: ${doc.document}")
+//                trendingAdapter.addItems(productList)
+//                trendingAdapter.notifyDataSetChanged()
+//            }
+//        }
+
+        productViewModel.getAllProduct()
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            productViewModel.productViewState.collect {
+                if (it != null) {
+                    trendingAdapter.addItems(it)
+                    trendingAdapter.notifyDataSetChanged()
+                }
             }
         }
-
 
     }
 

@@ -62,4 +62,6 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
         }
     }
 
+
+
 }

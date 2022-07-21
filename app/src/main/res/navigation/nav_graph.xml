@@ -10,7 +10,7 @@
         android:label="HomePageFragment" >
         <action
             android:id="@+id/action_homePageFragment_to_productDetailsFragment2"
-            app:destination="@id/productDetailsFragment2" />
+            app:destination="@id/productDetailsFragment2"/>
         <action
             android:id="@+id/action_homePageFragment_to_addressAndPaymentFragment"
             app:destination="@id/addressAndPaymentFragment" />
@@ -149,6 +149,7 @@
         android:label="CheckOutFragment" >
         <action
             android:id="@+id/action_checkOutFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/homePageFragment"
+            app:popUpTo="@id/homePageFragment"/>
     </fragment>
 </navigation>
