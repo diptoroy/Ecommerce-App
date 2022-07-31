@@ -62,7 +62,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/gothambold"
-                android:text="@{favorite.productPrice}"
+                android:text="@{`$`+favorite.productPrice}"
                 android:textColor="@color/product_details_text_color"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraintLayout7"

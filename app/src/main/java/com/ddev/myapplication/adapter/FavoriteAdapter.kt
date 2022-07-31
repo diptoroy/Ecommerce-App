@@ -4,8 +4,9 @@ import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.FavoriteRowBinding
 import com.ddev.myapplication.databinding.OnboardingItemBinding
 import com.ddev.myapplication.model.FavoriteModel
+import com.ddev.myapplication.util.ClickListener
 
-class FavoriteAdapter : BaseAdapter<FavoriteModel, FavoriteRowBinding>() {
+class FavoriteAdapter(var clickListener: ClickListener<FavoriteModel>) : BaseAdapter<FavoriteModel, FavoriteRowBinding>() {
 
     override fun getLayout() = R.layout.favorite_row
 
@@ -14,6 +15,10 @@ class FavoriteAdapter : BaseAdapter<FavoriteModel, FavoriteRowBinding>() {
         position: Int
     ) {
         holder.binding.favorite = itemList[position]
+
+        holder.binding.favoriteDeleteBtn.setOnClickListener {
+            clickListener.onClick(itemList[position],position)
+        }
     }
 
 }

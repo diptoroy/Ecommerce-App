@@ -5,6 +5,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -14,6 +17,7 @@ import com.ddev.myapplication.adapter.ProductViewPagerAdapter
 import com.ddev.myapplication.adapter.ViewPagerAdapter
 import com.ddev.myapplication.databinding.FragmentProductDetailsBinding
 import com.ddev.myapplication.model.AddToCartModel
+import com.ddev.myapplication.model.FavoriteModel
 import com.ddev.myapplication.model.SpecModel
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
@@ -25,7 +29,10 @@ import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class ProductDetailsFragment :
@@ -50,7 +57,7 @@ class ProductDetailsFragment :
     private lateinit var currentUser: FirebaseUser
     private lateinit var currentUserId: String
 
-    private lateinit var productId:String
+    private lateinit var productId: String
     private lateinit var imageList: ArrayList<ProductViewPagerModel>
     private lateinit var productName: String
     private lateinit var colorList: ArrayList<ColorModel>
@@ -58,6 +65,8 @@ class ProductDetailsFragment :
     private lateinit var productSpec: ArrayList<SpecModel>
     private lateinit var productPrice: String
     private lateinit var productRating: String
+
+    private var isFavorite: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -92,7 +101,19 @@ class ProductDetailsFragment :
         fragmentBinding.productPrice.text = "$$productPrice"
         fragmentBinding.productRating.text = productRating
 
+        db.collection("Users").document(currentUserId).collection("Favorite")
+            .addSnapshotListener { value, error ->
+                for (doc: DocumentChange in value!!.documentChanges) {
+                    if (doc.document.id == productId) {
+                        isFavorite = true
+                        fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_24, null)!!)
+                    } else {
+                        isFavorite = false
+                        fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_border_24, null)!!)
+                    }
 
+                }
+            }
         //image viewpager
         if (imageList != null) {
             adapter.addItems(imageList)
@@ -126,30 +147,67 @@ class ProductDetailsFragment :
 
         //product detials
         val pagerAdapter =
-            productSpec?.let { ViewPagerAdapter(childFragmentManager, lifecycle,productDesc, it) }
+            productSpec?.let { ViewPagerAdapter(childFragmentManager, lifecycle, productDesc, it) }
         fragmentBinding.specViewPager.adapter = pagerAdapter
-        TabLayoutMediator(fragmentBinding.tabLayout, fragmentBinding.specViewPager) { tab, position ->
+        TabLayoutMediator(
+            fragmentBinding.tabLayout,
+            fragmentBinding.specViewPager
+        ) { tab, position ->
             tab.text = dArray[position]
         }.attach()
 
+        var favoriteProduct =
+            FavoriteModel(productId, productName, imageList[0].image!!, productPrice, isFavorite)
 
+
+        fragmentBinding.favBtn.setOnClickListener {
+            isFavorite = if (!isFavorite) {
+                fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_24, null)!!
+                )
+                db.collection("Users").document(currentUserId).collection("Favorite").document(productId!!).set(favoriteProduct)
+                true
+            } else {
+                fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_border_24, null)!!)
+                db.collection("Users").document(currentUserId).collection("Favorite").document(productId!!).delete()
+                false
+            }
+
+        }
 
     }
 
     override fun onClick(item: ColorModel, position: Int) {
         fragmentBinding.addToCartBtn.setOnClickListener {
-            var addToCartModelData = AddToCartModel(productId!!,imageList[0].image,productName!!, item.color.toString(),item.colorName.toString(),1,productPrice!!.toInt(),productPrice!!.toInt())
-            var addToCartDb = db.collection("Users").document(currentUserId).collection("AddToCart").document(productId)
-            addToCartDb.set(addToCartModelData).addOnCompleteListener { task->
-                if (task.isSuccessful){
+            var addToCartModelData = AddToCartModel(
+                productId!!,
+                imageList[0].image,
+                productName!!,
+                item.color.toString(),
+                item.colorName.toString(),
+                1,
+                productPrice!!.toInt(),
+                productPrice!!.toInt()
+            )
+            var addToCartDb = db.collection("Users").document(currentUserId).collection("AddToCart")
+                .document(productId)
+            addToCartDb.set(addToCartModelData).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
                     Log.i("addToCart", "buildUi: item is add to cart")
-                    var successDialog = CustomAlertDialog(requireActivity(),fragmentBinding.mainRootView)
-                    successDialog.showSuccess(requireActivity().getString(R.string.add_to_cart_success_title),requireActivity().getString(R.string.add_to_cart_success_sub_title))
+                    var successDialog =
+                        CustomAlertDialog(requireActivity(), fragmentBinding.mainRootView)
+                    successDialog.showSuccess(
+                        requireActivity().getString(R.string.add_to_cart_success_title),
+                        requireActivity().getString(R.string.add_to_cart_success_sub_title)
+                    )
                 }
             }.addOnFailureListener {
                 Log.i("addToCart", "buildUi: Failed to add to cart")
-                var successDialog = CustomAlertDialog(requireActivity(),fragmentBinding.mainRootView)
-                successDialog.showFailResponse(requireActivity().getString(R.string.add_to_cart_fail_title),requireActivity().getString(R.string.add_to_cart_fail_sub_title))
+                var successDialog =
+                    CustomAlertDialog(requireActivity(), fragmentBinding.mainRootView)
+                successDialog.showFailResponse(
+                    requireActivity().getString(R.string.add_to_cart_fail_title),
+                    requireActivity().getString(R.string.add_to_cart_fail_sub_title)
+                )
             }
         }
     }

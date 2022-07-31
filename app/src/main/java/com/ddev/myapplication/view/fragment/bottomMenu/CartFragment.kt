@@ -3,8 +3,9 @@ package com.ddev.myapplication.view.fragment.bottomMenu
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.navigation.Navigation
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.CartAdapter
@@ -16,14 +17,12 @@ import com.ddev.myapplication.util.LoadingDialog
 import com.ddev.myapplication.util.PriceClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
+import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.delay
-import kotlin.math.log
 
 
 class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate),PriceClickListener,ClickListener<AddToCartModel> {
@@ -31,6 +30,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         CartAdapter(this,this)
     }
     var list = ArrayList<AddToCartModel>()
+    private val cartViewModel: DataReceiveViewModel by navGraphViewModels(R.id.bottom_nav) {
+        SavedStateViewModelFactory(
+            requireActivity().application,
+            requireParentFragment()
+        )
+    }
 
     private lateinit var db: FirebaseFirestore
     private lateinit var currentUser: FirebaseUser
@@ -56,22 +61,40 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                 for (doc: DocumentChange in value!!.documentChanges) {
                     list.add(doc.document.toObject(AddToCartModel::class.java))
                     adapter.addItems(list)
+                    addressAndPayment(list)
                     totalPrice()
                 }
             }
 
+//        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+//            cartViewModel.getCartProducts()
+//            cartViewModel.cartViewState.collect {cartList ->
+//                if (cartList != null) {
+//                    adapter.addItems(cartList)
+//                    adapter.notifyDataSetChanged()
+//                    totalPrice()
+//                }
+//
+//            }
+//        }
 
-        addressAndPayment()
 
     }
 
-    private fun addressAndPayment() {
+    private fun addressAndPayment(list: ArrayList<AddToCartModel>) {
+        if (list.size <= 0){
+            fragmentBinding.buyNowBtn.isEnabled = false
+        }else{
+            fragmentBinding.buyNowBtn.isEnabled = true
             fragmentBinding.buyNowBtn.setOnClickListener {
                 var navController = Navigation.findNavController(requireActivity(),R.id.fragmentContainerView)
                 var address = AddressModel("","","","","")
-                var action = HomePageFragmentDirections.actionHomePageFragmentToAddressAndPaymentFragment(list.toTypedArray(),totalPrice(),address)
+                var action = HomePageFragmentDirections.actionHomePageFragmentToAddressAndPaymentFragment(
+                    this.list.toTypedArray(),totalPrice(),address)
                 navController.navigate(action)
             }
+        }
+
     }
 
     private fun totalPrice():Int {
@@ -135,15 +158,4 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         adapter.notifyDataSetChanged()
         totalPrice()
     }
-
-
-
-
 }
-//db.collection("Users").document(currentUserId).collection("AddToCart").addSnapshotListener { value, error ->
-//    for (doc: DocumentChange in value!!.documentChanges) {
-//        list.add(doc.document.toObject(AddToCartModel::class.java))
-//        adapter.addItems(list)
-//        adapter.notifyDataSetChanged()
-//    }
-//}
