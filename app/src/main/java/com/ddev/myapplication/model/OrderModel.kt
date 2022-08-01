@@ -1,5 +1,9 @@
 package com.ddev.myapplication.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class OrderModel(
     var userId:String? = null,
     var orderId:String? = null,
@@ -9,4 +13,4 @@ data class OrderModel(
     var orderDate:String? = null,
     var totalPrice:Int? = null,
     var orderStatus:String? = null
-)
+):Parcelable

@@ -17,6 +17,7 @@ import com.ddev.myapplication.databinding.FragmentFavoriteBinding
 import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.FavoriteModel
 import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.util.LoadingDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +35,8 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteB
     private lateinit var db: FirebaseFirestore
     private lateinit var currentUser: FirebaseUser
     private lateinit var currentUserId: String
+    lateinit var loadingDialog: LoadingDialog
+
 
     private val favoriteViewModel: DataReceiveViewModel by navGraphViewModels(R.id.bottom_nav) {
         SavedStateViewModelFactory(
@@ -48,6 +51,8 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteB
         db = FirebaseFirestore.getInstance()
         currentUser = FirebaseAuth.getInstance().currentUser!!
         currentUserId = currentUser.uid
+
+        loadingDialog = LoadingDialog(requireContext())
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             favoriteViewModel.getFavoriteProducts()
@@ -72,11 +77,17 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteB
     }
 
     override fun onClick(item: FavoriteModel, position: Int) {
+        loadingDialog.show()
         db.collection("Users").document(currentUserId).collection("Favorite").document(item.productId!!)
             .delete()
-            .addOnCompleteListener {
-                adapter.notifyItemRemoved(position)
-                adapter.notifyDataSetChanged()
+            .addOnCompleteListener {task ->
+                loadingDialog.show()
+                if (task.isSuccessful){
+                    list.clear()
+                    list.remove(item)
+                    adapter.notifyDataSetChanged()
+                    loadingDialog.dismiss()
+                }
                 Log.d("delete success", "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e ->
                 Log.w("delete failed", "Error deleting document", e) }

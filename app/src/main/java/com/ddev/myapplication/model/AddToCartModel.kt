@@ -12,5 +12,6 @@ data class AddToCartModel(
     var productColorName:String? = null,
     var productQuantity:Int? = null,
     var productPrice:Int? = null,
-    var productSinglePrice:Int? = null
+    var productSinglePrice:Int? = null,
+    var productOrderId:String? = null
 ):Parcelable

@@ -4,22 +4,22 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.Application.EcommerceApp
 import com.ddev.myapplication.R
-import com.ddev.myapplication.databinding.AddressRowBinding
 import com.ddev.myapplication.databinding.OrderGroupRowBinding
 import com.ddev.myapplication.model.AddToCartModel
-import com.ddev.myapplication.model.AddressModel
 import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.util.ClickListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlin.collections.ArrayList
+
 
 class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
     BaseAdapter<OrderModel, OrderGroupRowBinding>() {
 
     private var orderGroup = ArrayList<OrderModel>()
-    private var orderItem = ArrayList<AddToCartModel>()
+    private var orderItem = listOf<AddToCartModel>()
     private val adapter by lazy {
         OrderItemAdapter()
     }
@@ -51,10 +51,20 @@ class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
                     orderGroup.forEach { modelData ->
                         orderItem = modelData.orderItem as ArrayList<AddToCartModel>
                         adapter.addItems(orderItem)
+                        setUpRecyclerView(holder)
                     }
 
                 }
             }
+
+//        db.collection("Users").document(currentUserId).collection("Order").document(orderGroup[position].orderId!!)
+//            .get().addOnCompleteListener{
+//                var doc: DocumentSnapshot = it.result
+//                if (doc.exists()){
+//                    orderItem = doc.toObject(OrderModel::class.java)!!.orderItem!!
+//                    adapter.addItems(orderItem)
+//                }
+//            }
 
 //        db.collection("Users").document(currentUserId).collection("Order")
 //            .addSnapshotListener { value, error ->
@@ -72,13 +82,13 @@ class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
 //                        }
 //                }
 //            }
-        setUpRecyclerView(holder)
+
     }
 
     private fun setUpRecyclerView(holder: BaseAdapter.Companion.BaseViewHolder<OrderGroupRowBinding>) {
         holder.binding.orderItemRecyclerView.layoutManager = LinearLayoutManager(
             EcommerceApp.getApp()!!.applicationContext,
-            LinearLayoutManager.VERTICAL, false
+            LinearLayoutManager.HORIZONTAL, false
         )
         holder.binding.orderItemRecyclerView.setHasFixedSize(true)
         holder.binding.orderItemRecyclerView.adapter = adapter

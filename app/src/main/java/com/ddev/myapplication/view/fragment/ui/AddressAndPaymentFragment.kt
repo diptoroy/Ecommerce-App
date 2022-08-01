@@ -94,6 +94,12 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
                 selectedRadioButton = view.findViewById(paymentId)
                 val paymentMethod: String = selectedRadioButton.text.toString()
 
+                list.map {
+                    it.apply {
+                        productOrderId = orderId
+                    }
+                }
+
                 val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                 var oTime = sdf.format(Date())
                 var order = OrderModel(

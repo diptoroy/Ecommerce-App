@@ -27,7 +27,6 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
         fragmentBinding.homeBtn.setOnClickListener {
             var action = CheckOutFragmentDirections.actionCheckOutFragmentToHomePageFragment()
-            findNavController().popBackStack()
             findNavController().navigate(action)
         }
     }

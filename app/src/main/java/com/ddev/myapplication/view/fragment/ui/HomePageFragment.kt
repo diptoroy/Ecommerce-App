@@ -1,7 +1,9 @@
 package com.ddev.myapplication.view.fragment.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -47,19 +49,17 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
 
         db.collection("Users").document(currentUserId).collection("AddToCart")
             .addSnapshotListener { value, error ->
-                for (doc: DocumentChange in value!!.documentChanges) {
-                    cartList.add(doc.document.toObject(AddToCartModel::class.java))
-                    badgeNo = cartList.size.toString()
+                var cartSize = value!!.size()
+                if (cartSize > 0){
+                    fragmentBinding.toolbar.notificationContainer.visibility = View.VISIBLE
+                    fragmentBinding.toolbar.appCompatImageView2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.checkout_success_color));
+                    fragmentBinding.toolbar.notificationContainer.text = cartSize.toString()
+                }else{
+                    fragmentBinding.toolbar.notificationContainer.visibility = View.GONE
                 }
+                Log.i("CartNoti", "onViewCreated: $cartSize")
             }
 
-        fragmentBinding.toolbar.notificationContainer.text = badgeNo
-        if (fragmentBinding.toolbar.notificationContainer.text == "0"){
-            fragmentBinding.toolbar.notificationContainer.visibility = View.GONE
-        }else{
-            fragmentBinding.toolbar.notificationContainer.visibility = View.VISIBLE
-            fragmentBinding.toolbar.notificationContainer.text = badgeNo
-        }
     }
 
 

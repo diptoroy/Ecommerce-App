@@ -38,8 +38,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/appCompatImageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/size_35dp"
+                    android:layout_height="@dimen/size_35dp"
                     android:layout_gravity="end"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -49,16 +49,15 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/notificationContainer"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="14dp"
+                    android:layout_width="@dimen/size_18dp"
+                    android:layout_height="@dimen/size_18dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
                     android:background="@drawable/notification_badge"
                     android:fontFamily="@font/gothambold"
                     android:gravity="center"
-                    android:text="7"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
                     app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"

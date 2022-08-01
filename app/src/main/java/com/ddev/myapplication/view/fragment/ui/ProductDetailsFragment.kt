@@ -29,8 +29,7 @@ import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -65,6 +64,7 @@ class ProductDetailsFragment :
     private lateinit var productSpec: ArrayList<SpecModel>
     private lateinit var productPrice: String
     private lateinit var productRating: String
+    private var eventListener: ListenerRegistration? = null
 
     private var isFavorite: Boolean = false
 
@@ -85,6 +85,7 @@ class ProductDetailsFragment :
     }
 
     private fun buildUi(bundle: Bundle) {
+        val context = context ?: return
         val args = ProductDetailsFragmentArgs.fromBundle(bundle)
         productId = args.productDetails.productId!!
         imageList = (args.productDetails.productImage as ArrayList<ProductViewPagerModel>?)!!
@@ -101,15 +102,16 @@ class ProductDetailsFragment :
         fragmentBinding.productPrice.text = "$$productPrice"
         fragmentBinding.productRating.text = productRating
 
-        db.collection("Users").document(currentUserId).collection("Favorite")
+
+        eventListener = db.collection("Users").document(currentUserId).collection("Favorite")
             .addSnapshotListener { value, error ->
+                if (error != null) eventListener?.remove()
                 for (doc: DocumentChange in value!!.documentChanges) {
                     if (doc.document.id == productId) {
                         isFavorite = true
-                        fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_24, null)!!)
+                        fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(context.resources, R.drawable.ic_baseline_favorite_24, null)!!)
                     } else {
-                        isFavorite = false
-                        fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_border_24, null)!!)
+                        fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(context.resources, R.drawable.ic_baseline_favorite_border_24, null)!!)
                     }
 
                 }
@@ -159,15 +161,13 @@ class ProductDetailsFragment :
         var favoriteProduct =
             FavoriteModel(productId, productName, imageList[0].image!!, productPrice, isFavorite)
 
-
         fragmentBinding.favBtn.setOnClickListener {
             isFavorite = if (!isFavorite) {
-                fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_24, null)!!
-                )
+                fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(context.resources, R.drawable.ic_baseline_favorite_24, null)!!)
                 db.collection("Users").document(currentUserId).collection("Favorite").document(productId!!).set(favoriteProduct)
                 true
             } else {
-                fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_baseline_favorite_border_24, null)!!)
+                fragmentBinding.favBtn.setImageDrawable(ResourcesCompat.getDrawable(context.resources, R.drawable.ic_baseline_favorite_border_24, null)!!)
                 db.collection("Users").document(currentUserId).collection("Favorite").document(productId!!).delete()
                 false
             }
