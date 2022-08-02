@@ -3,9 +3,8 @@ package com.ddev.myapplication.adapter
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.AddToCartRowBinding
 import com.ddev.myapplication.model.AddToCartModel
-import com.ddev.myapplication.util.ClickListener
-import com.ddev.myapplication.util.PriceClickListener
-import com.google.firebase.firestore.DocumentSnapshot
+import com.ddev.myapplication.listener.ClickListener
+import com.ddev.myapplication.listener.PriceClickListener
 import kotlinx.android.synthetic.main.add_to_cart_row.view.*
 
 

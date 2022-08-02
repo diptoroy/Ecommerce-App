@@ -3,14 +3,13 @@ package com.ddev.myapplication.adapter
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ddev.myapplication.Application.EcommerceApp
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.ProductColorRowBinding
 import com.ddev.myapplication.model.product.ColorModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 
 class ColorAdapter(var clickListener: ClickListener<ColorModel>) : BaseAdapter<ColorModel, ProductColorRowBinding>() {
 

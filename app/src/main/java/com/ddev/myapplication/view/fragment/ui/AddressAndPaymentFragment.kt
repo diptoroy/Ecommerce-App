@@ -16,9 +16,9 @@ import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.AddressModel
 import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.model.PaymentMethodModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.util.NotificationService
-import com.ddev.myapplication.util.PriceClickListener
+import com.ddev.myapplication.listener.PriceClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,7 +28,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>(FragmentAddressAndPaymentBinding::inflate),PriceClickListener,ClickListener<AddToCartModel> {
+class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>(FragmentAddressAndPaymentBinding::inflate),
+    PriceClickListener, ClickListener<AddToCartModel> {
 
     private val adapter by lazy {
         PaymentAdapter()

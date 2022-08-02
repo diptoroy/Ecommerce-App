@@ -3,9 +3,9 @@ package com.ddev.myapplication.adapter
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.TrendingRowBinding
 import com.ddev.myapplication.model.product.ProductModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 
-class ProductAdapter(var clickListener:ClickListener<ProductModel>): BaseAdapter<ProductModel, TrendingRowBinding>() {
+class ProductAdapter(var clickListener: ClickListener<ProductModel>): BaseAdapter<ProductModel, TrendingRowBinding>() {
 
     override fun getLayout() = R.layout.trending_row
 

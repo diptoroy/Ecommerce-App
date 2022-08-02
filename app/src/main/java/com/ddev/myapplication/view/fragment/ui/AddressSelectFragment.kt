@@ -3,16 +3,12 @@ package com.ddev.myapplication.view.fragment.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.AddressAdapter
 import com.ddev.myapplication.databinding.FragmentAddressSelectBinding
-import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.AddressModel
-import com.ddev.myapplication.model.product.ProductModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -20,7 +16,8 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class AddressSelectFragment : BaseFragment<FragmentAddressSelectBinding>(FragmentAddressSelectBinding::inflate),ClickListener<AddressModel> {
+class AddressSelectFragment : BaseFragment<FragmentAddressSelectBinding>(FragmentAddressSelectBinding::inflate),
+    ClickListener<AddressModel> {
 
     private val adapter by lazy {
         AddressAdapter(this)

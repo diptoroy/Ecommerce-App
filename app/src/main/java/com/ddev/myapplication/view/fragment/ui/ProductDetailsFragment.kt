@@ -1,13 +1,9 @@
 package com.ddev.myapplication.view.fragment.ui
 
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -21,8 +17,7 @@ import com.ddev.myapplication.model.FavoriteModel
 import com.ddev.myapplication.model.SpecModel
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
-import com.ddev.myapplication.util.ClickListener
-import com.ddev.myapplication.util.ColorClickListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.util.CustomAlertDialog
 import com.ddev.myapplication.util.ViewPager2PageTransformation
 import com.ddev.myapplication.view.fragment.BaseFragment
@@ -30,8 +25,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 class ProductDetailsFragment :

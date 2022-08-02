@@ -2,11 +2,7 @@ package com.ddev.myapplication.view.fragment.bottomMenu
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navGraphViewModels
@@ -14,20 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.FavoriteAdapter
 import com.ddev.myapplication.databinding.FragmentFavoriteBinding
-import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.FavoriteModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.util.LoadingDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.flow.collect
 
-class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteBinding::inflate),ClickListener<FavoriteModel> {
+class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteBinding::inflate),
+    ClickListener<FavoriteModel> {
     private val adapter by lazy {
         FavoriteAdapter(this)
     }

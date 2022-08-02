@@ -24,8 +24,6 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
     private lateinit var db: FirebaseFirestore
     private lateinit var currentUser: FirebaseUser
     private lateinit var currentUserId: String
-    private var cartList = ArrayList<AddToCartModel>()
-    private var badgeNo: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,6 +31,7 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
 
         currentUser = FirebaseAuth.getInstance().currentUser!!
         currentUserId = currentUser.uid
+        val context = context ?: return
 
         val nestedNavHostFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerView2) as? NavHostFragment
 
@@ -52,7 +51,7 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding>(FragmentHomePageB
                 var cartSize = value!!.size()
                 if (cartSize > 0){
                     fragmentBinding.toolbar.notificationContainer.visibility = View.VISIBLE
-                    fragmentBinding.toolbar.appCompatImageView2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.checkout_success_color));
+     //               fragmentBinding.toolbar.appCompatImageView2.setColorFilter(ContextCompat.getColor(context, R.color.checkout_success_color));
                     fragmentBinding.toolbar.notificationContainer.text = cartSize.toString()
                 }else{
                     fragmentBinding.toolbar.notificationContainer.visibility = View.GONE

@@ -12,9 +12,9 @@ import com.ddev.myapplication.adapter.CartAdapter
 import com.ddev.myapplication.databinding.FragmentCartBinding
 import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.AddressModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.util.LoadingDialog
-import com.ddev.myapplication.util.PriceClickListener
+import com.ddev.myapplication.listener.PriceClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
@@ -25,7 +25,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate),PriceClickListener,ClickListener<AddToCartModel> {
+class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate),
+    PriceClickListener, ClickListener<AddToCartModel> {
     private val adapter by lazy {
         CartAdapter(this,this)
     }
@@ -82,7 +83,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
     }
 
     private fun addressAndPayment(list: ArrayList<AddToCartModel>) {
-        if (list.size <= 0){
+        if (list.size <= 0 || list == null){
             fragmentBinding.buyNowBtn.isEnabled = false
         }else{
             fragmentBinding.buyNowBtn.isEnabled = true

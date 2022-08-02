@@ -2,10 +2,8 @@ package com.ddev.myapplication.adapter
 
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.AddressRowBinding
-import com.ddev.myapplication.databinding.CategoryRowBinding
 import com.ddev.myapplication.model.AddressModel
-import com.ddev.myapplication.model.CategoryModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 
 class AddressAdapter(var clickListener: ClickListener<AddressModel>) : BaseAdapter<AddressModel, AddressRowBinding>() {
 

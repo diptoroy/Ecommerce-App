@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.SavedStateViewModelFactory
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
@@ -18,20 +17,14 @@ import com.ddev.myapplication.databinding.FragmentHomeBinding
 import com.ddev.myapplication.model.*
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductModel
-import com.ddev.myapplication.model.product.ProductSpecModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
-import com.ddev.myapplication.view.viewmodel.AuthViewModel
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.product_basic_spec_row.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlin.math.log
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),

@@ -2,25 +2,20 @@ package com.ddev.myapplication.view.fragment.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ddev.myapplication.R
-import com.ddev.myapplication.adapter.CartAdapter
 import com.ddev.myapplication.adapter.OrderGroupAdapter
 import com.ddev.myapplication.databinding.FragmentOrderBinding
-import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.OrderModel
-import com.ddev.myapplication.util.ClickListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
-class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::inflate),ClickListener<OrderModel> {
+class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::inflate),
+    ClickListener<OrderModel> {
 
     private val adapter by lazy {
         OrderGroupAdapter(this)
