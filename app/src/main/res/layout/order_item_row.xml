@@ -11,7 +11,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:layout_marginBottom="@dimen/size_5dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView19"
@@ -25,6 +27,8 @@
             android:id="@+id/imageView9"
             android:layout_width="@dimen/size_70dp"
             android:layout_height="@dimen/size_70dp"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_marginBottom="@dimen/size_5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

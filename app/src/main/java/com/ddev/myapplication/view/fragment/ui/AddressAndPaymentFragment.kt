@@ -12,13 +12,10 @@ import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.CartAdapter
 import com.ddev.myapplication.adapter.PaymentAdapter
 import com.ddev.myapplication.databinding.FragmentAddressAndPaymentBinding
-import com.ddev.myapplication.model.AddToCartModel
-import com.ddev.myapplication.model.AddressModel
-import com.ddev.myapplication.model.OrderModel
-import com.ddev.myapplication.model.PaymentMethodModel
 import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.util.NotificationService
 import com.ddev.myapplication.listener.PriceClickListener
+import com.ddev.myapplication.model.*
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -48,7 +45,8 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var navController = findNavController()
-        NotificationService.createNotificationChannel(requireContext())
+        val context = context ?: return
+        NotificationService.createNotificationChannel(context)
 
         list.add(PaymentMethodModel(ResourcesCompat.getDrawable(resources, R.drawable.cod, null)!!,"Cash On Delivery"))
         list.add(PaymentMethodModel(ResourcesCompat.getDrawable(resources, R.drawable.wallet, null)!!,"Online Payment"))
@@ -101,6 +99,11 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
                     }
                 }
 
+                var shipmentProcessModel = ArrayList<ShipmentProcessModel>()
+                shipmentProcessModel.add(ShipmentProcessModel("Processiing",true,"2022-05-25T16:28:20.775"))
+                shipmentProcessModel.add(ShipmentProcessModel("shipping",false,"2022-06-25T16:28:20.775"))
+                shipmentProcessModel.add(ShipmentProcessModel("Received",false,"2022-07-25T16:28:20.775"))
+
                 val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                 var oTime = sdf.format(Date())
                 var order = OrderModel(
@@ -111,7 +114,8 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
                     paymentMethod,
                     oTime,
                     amount,
-                    "Processing"
+                    "Processing",
+                    shipmentProcessModel
                 )
                 Log.i("orderId", "onViewCreated: $order")
                 var orderDb = db.collection("Users").document(currentUserId).collection("Order").document(orderId)
@@ -120,11 +124,12 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
                         db.collection("Users").document(currentUserId).collection("AddToCart").addSnapshotListener { value, error ->
                             for (doc: DocumentChange in value!!.documentChanges) {
                                 var cartId = doc.document.id
-                                val pendingIntent = NavDeepLinkBuilder(requireContext())
+
+                                val pendingIntent = NavDeepLinkBuilder(context)
                                     .setGraph(R.navigation.nav_graph)
                                     .setDestination(R.id.homePageFragment)
                                     .createPendingIntent()
-                                NotificationService.buildNotification(requireContext(),"Your order has been placed","Your order id $orderId.You have to pay $$amount.Thank you.",pendingIntent)
+                                NotificationService.buildNotification(context,"Your order has been placed","Your order id $orderId.You have to pay $$amount.Thank you.",pendingIntent)
                                 db.collection("Users").document(currentUserId).collection("AddToCart").document(cartId).delete()
                             }
                         }

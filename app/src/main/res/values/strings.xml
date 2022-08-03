@@ -52,5 +52,10 @@
     <string name="add_to_cart_fail_sub_title">Failed to add the Cart</string>
     <string name="hello_blank_fragment">nothing</string>
 
+    <!-- order-->
+    <string name="shippining_addreess_text">Shipping Address</string>
+    <string name="total_balance_text">Total Balance</string>
+    <string name="shipment_process_text">Shipment Process</string>
+
 
 </resources>

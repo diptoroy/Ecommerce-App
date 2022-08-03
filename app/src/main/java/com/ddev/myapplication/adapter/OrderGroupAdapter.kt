@@ -10,7 +10,12 @@ import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.listener.ClickListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.toObject
+import kotlinx.android.synthetic.main.order_group_row.view.*
 
 
 class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
@@ -33,7 +38,7 @@ class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
         position: Int
     ) {
         holder.binding.orderGroupModel = itemList[position]
-        holder.itemView.setOnClickListener {
+        holder.itemView.orderView.setOnClickListener {
             clickListener.onClick(itemList[position], position)
         }
 
@@ -41,54 +46,27 @@ class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
         currentUser = FirebaseAuth.getInstance().currentUser!!
         currentUserId = currentUser.uid
 
-
-//        db.collection("Users").document(currentUserId).collection("Order")
-//            .addSnapshotListener { value, error ->
-//                for (doc: DocumentChange in value!!.documentChanges) {
-//                    orderGroup.add(doc.document.toObject(OrderModel::class.java))
-//                    Log.i("modelData", "onBindViewHolder: $orderGroup")
-//                    orderGroup.forEach { modelData ->
-//                        orderItem = modelData.orderItem as ArrayList<AddToCartModel>
-//                        adapter.addItems(orderItem)
-//                        setUpRecyclerView(holder)
-//                    }
-//
-//                }
-//            }
-
-        db.collection("Users").document(currentUserId).collection("Order").get().addOnCompleteListener { task ->
-            if (task.isSuccessful){
-                for (documentSnapshot in task.result) {
-                    var id = documentSnapshot.id
-                    db.collection("Users").document(currentUserId).collection("Order").document(id).get().addOnCompleteListener {data ->
-                        if (data.isSuccessful){
-                            val document = data.result
-                            if (document != null){
-                                val doc = document.toObject(OrderModel::class.java)
-                                var i = doc!!.orderItem!!
-                                Log.i("oI", "onBindViewHolder: $i")
-                                adapter.addItems(i)
-                                setUpRecyclerView(holder)
-//                                for (ii in i){
-//                                    adapter.addItems(ii)
-//                                }
-                            }
-                        }
+        db.collection("Users").document(currentUserId).collection("Order")
+            .addSnapshotListener { value, error ->
+                for (doc: DocumentChange in value!!.documentChanges) {
+                    orderGroup.add(doc.document.toObject(OrderModel::class.java))
+                    Log.i("modelData", "onBindViewHolder: $orderGroup")
+                    orderGroup.forEach { modelData ->
+                        orderItem = modelData.orderItem as ArrayList<AddToCartModel>
+                        adapter.addItems(orderItem)
+                        setUpRecyclerView(holder)
                     }
+
                 }
             }
-        }
-
     }
 
     private fun setUpRecyclerView(holder: BaseAdapter.Companion.BaseViewHolder<OrderGroupRowBinding>) {
         holder.binding.orderItemRecyclerView.layoutManager = LinearLayoutManager(
             EcommerceApp.getApp()!!.applicationContext,
-            LinearLayoutManager.HORIZONTAL, false
+            LinearLayoutManager.VERTICAL, false
         )
         holder.binding.orderItemRecyclerView.setHasFixedSize(true)
         holder.binding.orderItemRecyclerView.adapter = adapter
     }
-
-
 }

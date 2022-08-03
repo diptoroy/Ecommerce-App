@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="shipmentProcess"
+            type="com.ddev.myapplication.model.ShipmentProcessModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/shipmentProcessBackground"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/shipment_process_background"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/shipmentUpper" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shipmentProcessBack2State"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@{shipmentProcess.processComplete ? @drawable/test2 : @drawable/whit}"
+            app:layout_constraintBottom_toBottomOf="@+id/shipmentProcessBack1State"
+            app:layout_constraintEnd_toEndOf="@+id/shipmentProcessBack1State"
+            app:layout_constraintStart_toStartOf="@+id/shipmentProcessBack1State"
+            app:layout_constraintTop_toTopOf="@+id/shipmentProcessBack1State"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shipmentProcessBack1State"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@{shipmentProcess.processComplete ? @drawable/shipment_process_state_inactive : @drawable/whit}"
+            app:layout_constraintBottom_toBottomOf="@+id/shipmentProcessState"
+            app:layout_constraintEnd_toEndOf="@+id/shipmentProcessState"
+            app:layout_constraintStart_toStartOf="@+id/shipmentProcessState"
+            app:layout_constraintTop_toTopOf="@+id/shipmentProcessState"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shipmentProcessState"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/shipmentProcessBackground"
+            app:layout_constraintEnd_toEndOf="@+id/shipmentProcessBackground"
+            app:layout_constraintStart_toStartOf="@+id/shipmentProcessBackground"
+            app:layout_constraintTop_toTopOf="@+id/shipmentProcessBackground"
+            android:src="@{shipmentProcess.processComplete ? @drawable/shipment_process_state_active : @drawable/shipment_process_state_inactive}" />
+
+        <View
+            android:id="@+id/shipmentUpper"
+            style="@style/Divider.Vertical"
+            android:layout_height="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/shipmentProcessBackground"
+            app:layout_constraintStart_toStartOf="@+id/shipmentProcessBackground"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/shipmentLower"
+            style="@style/Divider.Vertical"
+            android:layout_height="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/shipmentProcessBackground"
+            app:layout_constraintStart_toStartOf="@+id/shipmentProcessBackground"
+            app:layout_constraintTop_toBottomOf="@+id/shipmentProcessBackground" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/shipmentProcessName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textStyle="bold"
+            android:text="@{shipmentProcess.processName}"
+            app:layout_constraintBottom_toBottomOf="@+id/shipmentProcessBackground"
+            app:layout_constraintStart_toEndOf="@+id/shipmentProcessBackground"
+            app:layout_constraintTop_toTopOf="@+id/shipmentProcessBackground" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView11"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="10sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            app:transDate="@{shipmentProcess.productDate}"
+            android:visibility="@{shipmentProcess.processComplete ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/shipmentProcessBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/shipmentProcessBackground" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/processCompletedImage"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/shipmentLower"
+            app:layout_constraintEnd_toEndOf="@+id/shipmentProcessBackground"
+            app:layout_constraintStart_toStartOf="@+id/shipmentProcessBackground"
+            app:layout_constraintTop_toTopOf="@+id/shipmentProcessBackground"
+             />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
