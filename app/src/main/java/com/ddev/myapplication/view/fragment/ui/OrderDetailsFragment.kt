@@ -2,17 +2,11 @@ package com.ddev.myapplication.view.fragment.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.OrderDetailsAdapter
-import com.ddev.myapplication.adapter.OrderGroupAdapter
 import com.ddev.myapplication.adapter.ShipmentProcessAdapter
 import com.ddev.myapplication.databinding.FragmentOrderDetailsBinding
-import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.view.fragment.BaseFragment
 
 
@@ -60,6 +54,12 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
 
         adapter.addItems(orderItem!!)
         shipmentAdapter.addItems(shipmentProcess!!)
+//
+//        fragmentBinding.button.setOnClickListener {
+//            var cartItem = AddToCartModel("eee","","3333","","ee",2,222,222,"")
+//            val pdfConverter = PdfConverter()
+//            pdfConverter.createPdf(requireContext(), cartItem, requireActivity())
+//        }
         setUpRecyclerView()
     }
 

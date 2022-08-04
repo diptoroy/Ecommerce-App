@@ -58,6 +58,7 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
         currentUser = FirebaseAuth.getInstance().currentUser!!
         currentUserId = currentUser.uid
 
+
         val bundle = arguments
         if (bundle == null) {
             Log.e("Confirmation", "Confirmation")
