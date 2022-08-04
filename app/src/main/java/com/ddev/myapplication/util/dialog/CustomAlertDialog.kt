@@ -1,11 +1,9 @@
-package com.ddev.myapplication.util
+package com.ddev.myapplication.util.dialog
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.DisplayMetrics
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import com.ddev.myapplication.R

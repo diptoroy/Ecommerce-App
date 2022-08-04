@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.FragmentSignInBinding
-import com.ddev.myapplication.util.LoadingDialog
+import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.util.State
 import com.ddev.myapplication.util.Validation
 import com.ddev.myapplication.view.fragment.BaseFragment

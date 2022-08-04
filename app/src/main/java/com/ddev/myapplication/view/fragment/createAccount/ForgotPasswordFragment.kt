@@ -2,10 +2,7 @@ package com.ddev.myapplication.view.fragment.createAccount
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.FragmentForgotPasswordBinding
-import com.ddev.myapplication.util.LoadingDialog
+import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.util.State
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.viewmodel.AuthViewModel

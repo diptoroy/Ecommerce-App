@@ -13,7 +13,7 @@ import com.ddev.myapplication.databinding.FragmentCartBinding
 import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.AddressModel
 import com.ddev.myapplication.listener.ClickListener
-import com.ddev.myapplication.util.LoadingDialog
+import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.listener.PriceClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections

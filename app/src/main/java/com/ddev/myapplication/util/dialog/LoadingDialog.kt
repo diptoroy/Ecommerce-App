@@ -1,4 +1,4 @@
-package com.ddev.myapplication.util
+package com.ddev.myapplication.util.dialog
 
 import android.app.Dialog
 import android.content.Context

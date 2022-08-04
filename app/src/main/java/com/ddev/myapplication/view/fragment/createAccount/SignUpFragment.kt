@@ -3,10 +3,7 @@ package com.ddev.myapplication.view.fragment.createAccount
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.SavedStateViewModelFactory
@@ -17,21 +14,16 @@ import androidx.navigation.navGraphViewModels
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.FragmentSignUpBinding
 import com.ddev.myapplication.model.UserInfoModel
-import com.ddev.myapplication.util.LoadingDialog
+import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.util.State
 import com.ddev.myapplication.util.Validation
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.viewmodel.AuthViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.collect
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.HashMap
 
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(FragmentSignUpBinding::inflate) {

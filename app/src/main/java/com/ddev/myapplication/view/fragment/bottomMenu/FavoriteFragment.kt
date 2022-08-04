@@ -12,7 +12,7 @@ import com.ddev.myapplication.adapter.FavoriteAdapter
 import com.ddev.myapplication.databinding.FragmentFavoriteBinding
 import com.ddev.myapplication.model.FavoriteModel
 import com.ddev.myapplication.listener.ClickListener
-import com.ddev.myapplication.util.LoadingDialog
+import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
 import com.google.firebase.auth.FirebaseAuth

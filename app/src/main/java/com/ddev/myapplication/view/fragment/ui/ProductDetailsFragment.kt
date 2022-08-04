@@ -18,7 +18,7 @@ import com.ddev.myapplication.model.SpecModel
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
 import com.ddev.myapplication.listener.ClickListener
-import com.ddev.myapplication.util.CustomAlertDialog
+import com.ddev.myapplication.util.dialog.CustomAlertDialog
 import com.ddev.myapplication.util.ViewPager2PageTransformation
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
