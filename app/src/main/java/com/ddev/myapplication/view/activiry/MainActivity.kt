@@ -6,8 +6,10 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import com.ddev.myapplication.Application.EcommerceApp
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.ActivityMainBinding
+import com.ddev.myapplication.listener.LogoutListener
 import com.ddev.myapplication.util.ConnectivityMonitor
 import com.ddev.myapplication.util.dialog.ConnectivityDialog
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -34,5 +36,15 @@ class MainActivity : AppCompatActivity() {
                 showDialog.showSuccess()
             }
         })
+ //       EcommerceApp.getApp()!!.registerSessionListener(this)
     }
+
+//    override fun onUserInteraction() {
+//        super.onUserInteraction()
+//        EcommerceApp.getApp()!!.resetSession()
+//    }
+//    override fun onSessionLogout() {
+//
+//    }
+
 }

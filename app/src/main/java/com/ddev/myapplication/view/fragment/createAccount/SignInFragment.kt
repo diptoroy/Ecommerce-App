@@ -69,15 +69,14 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(FragmentSignInBinding
                                 Log.i("Auth", "onCreate: .....success")
                                 loadingDialog.dismiss()
                                 //Token
-
                                 FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                                     if (task.isSuccessful){
                                         var newToken = task.result
+                                        Log.i("Gadget Gang Token", "setClick: $newToken")
                                         signInViewModel.getToken(newToken)
                                     }else{
 
                                     }
-
                                 }
                                 var action =
                                     SignInFragmentDirections.actionSignInFragmentToHomePageFragment()

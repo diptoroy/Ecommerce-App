@@ -56,7 +56,7 @@
     <string name="shippining_addreess_text">Shipping Address</string>
     <string name="total_balance_text">Total Balance</string>
     <string name="shipment_process_text">Shipment Process</string>
-    
+
     <!-- network -->
     <string name="no_network_text">No Internet</string>
     <string name="setting_text">Go to Setting</string>

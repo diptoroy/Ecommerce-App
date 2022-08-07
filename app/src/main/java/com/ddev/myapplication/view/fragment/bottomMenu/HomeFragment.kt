@@ -14,6 +14,7 @@ import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.CategoryAdapter
 import com.ddev.myapplication.adapter.ProductAdapter
 import com.ddev.myapplication.databinding.FragmentHomeBinding
+import com.ddev.myapplication.listener.CategoryListener
 import com.ddev.myapplication.model.*
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductModel
@@ -28,7 +29,7 @@ import kotlinx.coroutines.flow.collect
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
-    ClickListener<ProductModel> {
+    ClickListener<ProductModel>,CategoryListener<CategoryModel> {
     private val productViewModel: DataReceiveViewModel by navGraphViewModels(R.id.bottom_nav) {
         SavedStateViewModelFactory(
             requireActivity().application,
@@ -36,7 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         )
     }
     private val categoryAdapter by lazy {
-        CategoryAdapter()
+        CategoryAdapter(this)
     }
     private val trendingAdapter by lazy {
         ProductAdapter(this)
@@ -203,4 +204,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             HomePageFragmentDirections.actionHomePageFragmentToProductDetailsFragment2(item)
         navController.navigate(action)
     }
+
+    override fun onCategoryClick(item: CategoryModel, position: Int) {
+        var navController =
+            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+        var action = HomePageFragmentDirections.actionHomePageFragmentToProductCategoryFragment(item)
+        navController.navigate(action)
+    }
+
 }

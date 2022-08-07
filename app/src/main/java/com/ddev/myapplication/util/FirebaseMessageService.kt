@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavDeepLinkBuilder
@@ -55,5 +56,14 @@ class FirebaseMessageService: FirebaseMessagingService() {
         }
 
         notificationManager.notify(FCM_NOTIFICATION_ID, notificationBuilder.build())
+    }
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        sendRegistrationToServer(token)
+    }
+
+    private fun sendRegistrationToServer(token: String?) {
+        Log.d("Gadget gang", "sendRegistrationTokenToServer($token)")
     }
 }

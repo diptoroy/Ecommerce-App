@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_productCategoryFragment"
+            app:destination="@id/productCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -164,6 +167,16 @@
         <argument
             android:name="orderDetails"
             app:argType="com.ddev.myapplication.model.OrderModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/productCategoryFragment"
+        android:name="com.ddev.myapplication.view.fragment.ui.ProductCategoryFragment"
+        android:label="ProductCategoryFragment" >
+        <argument
+            android:name="categoryModel"
+            app:argType="com.ddev.myapplication.model.CategoryModel"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

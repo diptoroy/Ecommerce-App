@@ -23,6 +23,10 @@ class DataReceiveViewModel : ViewModel() {
     val productViewState: StateFlow<List<ProductModel>?> = _productViewState
     private var productList = ArrayList<ProductModel>()
 
+    private val _categoryViewState: MutableStateFlow<List<ProductModel>?> = MutableStateFlow(null)
+    val categoryViewState: StateFlow<List<ProductModel>?> = _categoryViewState
+    private var categoryProductList = ArrayList<ProductModel>()
+
     private val _cartViewState: MutableStateFlow<List<AddToCartModel>?> = MutableStateFlow(null)
     val cartViewState: StateFlow<List<AddToCartModel>?> = _cartViewState
     private var cartList = ArrayList<AddToCartModel>()
@@ -69,6 +73,19 @@ class DataReceiveViewModel : ViewModel() {
                 }
             }
     }
+
+//    suspend fun getCategoryProduct(categoryName: String) {
+//        db.collection("Products").whereEqualTo("productCategory",categoryName).addSnapshotListener { value, error ->
+//            categoryProductList.clear()
+//            for (doc: DocumentChange in value!!.documentChanges) {
+//                categoryProductList.add(doc.document.toObject(ProductModel::class.java))
+//            }
+//            viewModelScope.launch {
+//                _categoryViewState.emit(categoryProductList)
+//            }
+//
+//        }
+//    }
 
 
 }
