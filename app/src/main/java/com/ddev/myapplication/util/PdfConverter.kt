@@ -13,8 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.FileProvider
 import com.ddev.myapplication.R
+import com.ddev.myapplication.adapter.InvoiceAdapter
 import com.ddev.myapplication.adapter.OrderDetailsAdapter
 import com.ddev.myapplication.databinding.FragmentOrderDetailsBinding
+import com.ddev.myapplication.databinding.InvoiceLayoutBinding
 import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.OrderModel
 import java.io.File
@@ -25,15 +27,15 @@ class PdfConverter {
     private fun createBitmapFromView(
         context: Context,
         view: View,
-        pdfDetails: AddToCartModel,
-        adapter: OrderDetailsAdapter,
+        pdfDetails: OrderModel,
+        adapter: InvoiceAdapter,
         activity: Activity
     ): Bitmap {
-        val binding = FragmentOrderDetailsBinding.bind(view)
+        val binding = InvoiceLayoutBinding.bind(view)
         //binding.lifecycleOwner = binding.root.findViewTreeLifecycleOwner()    --   To be used when working with lifecycle components
-        //binding.orderItemDetails = pdfDetails
+        binding.invoiceModel = pdfDetails
         binding.executePendingBindings()
-        binding.orderListRecyclerView.adapter = adapter
+        binding.invoiceRecyclerView.adapter = adapter
         return createBitmap(context, binding.root, activity)
     }
 
@@ -68,13 +70,13 @@ class PdfConverter {
         return Bitmap.createScaledBitmap(bitmap, 595, 842, true)
     }
 
-    private fun convertBitmapToPdf(bitmap: Bitmap, context: Context) {
+    private fun convertBitmapToPdf(bitmap: Bitmap, context: Context,orderNo: String) {
         val pdfDocument = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(bitmap.width, bitmap.height, 1).create()
         val page = pdfDocument.startPage(pageInfo)
         page.canvas.drawBitmap(bitmap, 0F, 0F, null)
         pdfDocument.finishPage(page)
-        val filePath = File(context.getExternalFilesDir(null), "bitmapPdf.pdf")
+        val filePath = File(context.getExternalFilesDir(null), "$orderNo.pdf")
         pdfDocument.writeTo(FileOutputStream(filePath))
         pdfDocument.close()
         renderPdf(context, filePath)
@@ -82,15 +84,16 @@ class PdfConverter {
 
     fun createPdf(
         context: Context,
-        pdfDetails: AddToCartModel,
-        activity: Activity
+        pdfDetails: OrderModel,
+        activity: Activity,
+        orderNo: String
     ) {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.fragment_order_details, null)
+        val view = inflater.inflate(R.layout.invoice_layout, null)
 
-        val adapter = OrderDetailsAdapter()
+        val adapter = InvoiceAdapter(pdfDetails.orderItem!!)
         val bitmap = createBitmapFromView(context, view, pdfDetails, adapter, activity)
-        convertBitmapToPdf(bitmap, activity)
+        convertBitmapToPdf(bitmap, activity,orderNo)
     }
 
 

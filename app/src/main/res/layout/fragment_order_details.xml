@@ -145,7 +145,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/size_5dp"
-                            android:layout_marginBottom="@dimen/size_10dp"
+                            android:layout_marginBottom="@dimen/size_15dp"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/orderIdTv"
@@ -155,11 +155,40 @@
                             android:id="@+id/processTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_5dp"
+                            android:layout_marginEnd="@dimen/size_10dp"
+                            android:layout_marginBottom="@dimen/size_10dp"
+                            android:textColor="@color/checkout_success_color"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/downloadInvoiceBtn" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/downloadInvoiceBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/size_10dp"
                             android:layout_marginEnd="@dimen/size_10dp"
-                            android:textColor="@color/checkout_success_color"
+                            android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imageView10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/ic_baseline_file_copy_24" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/textView47"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/size_5dp"
+                                android:text="@string/invoice_download" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -218,19 +247,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView2" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="32dp"
-                    android:text="Button"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/totalBalanceTv" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

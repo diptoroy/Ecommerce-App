@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.adapter.OrderDetailsAdapter
 import com.ddev.myapplication.adapter.ShipmentProcessAdapter
 import com.ddev.myapplication.databinding.FragmentOrderDetailsBinding
+import com.ddev.myapplication.model.AddToCartModel
+import com.ddev.myapplication.model.OrderModel
+import com.ddev.myapplication.util.PdfConverter
 import com.ddev.myapplication.view.fragment.BaseFragment
+import kotlinx.android.synthetic.main.invoice_item_row.*
 
 
 class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentOrderDetailsBinding::inflate) {
@@ -34,10 +38,13 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
     private fun buildUi(bundle: Bundle) {
         val args = OrderDetailsFragmentArgs.fromBundle(bundle)
 
+        var userId = args.orderDetails!!.userId
         var orderId = args.orderDetails!!.orderId
         var orderPlaceDate = args.orderDetails!!.orderDate
         var orderItem = args.orderDetails!!.orderItem
         var orderProcess = args.orderDetails!!.orderStatus
+        var fullAddress = args.orderDetails!!.address
+        var paymentType = args.orderDetails!!.paymentType
         var shipmentName = args.orderDetails!!.address!!.name
         var shipmentPhone = args.orderDetails!!.address!!.phone
         var shipmentAddress = args.orderDetails!!.address!!.addressDetail + ", " +args.orderDetails!!.address!!.cityName
@@ -54,12 +61,12 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
 
         adapter.addItems(orderItem!!)
         shipmentAdapter.addItems(shipmentProcess!!)
-//
-//        fragmentBinding.button.setOnClickListener {
-//            var cartItem = AddToCartModel("eee","","3333","","ee",2,222,222,"")
-//            val pdfConverter = PdfConverter()
-//            pdfConverter.createPdf(requireContext(), cartItem, requireActivity())
-//        }
+
+        fragmentBinding.downloadInvoiceBtn.setOnClickListener {
+            var invoiceItem = OrderModel(userId,orderId,orderItem,fullAddress,paymentType,orderPlaceDate,orderTotalPrice,orderProcess,shipmentProcess)
+            val pdfConverter = PdfConverter()
+            pdfConverter.createPdf(requireContext(),invoiceItem , requireActivity(),orderId!!)
+        }
         setUpRecyclerView()
     }
 

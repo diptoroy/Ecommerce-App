@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ecommerce</string>
+    <string name="app_name">Gadget Gang</string>
 
     <string name="onBoardingTitle">Lorem Ipsum</string>
     <string name="onBoardingDesc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown.</string>
@@ -61,5 +61,12 @@
     <string name="no_network_text">No Internet</string>
     <string name="setting_text">Go to Setting</string>
 
+    <!-- invoice -->
+    <string name="invoice_item_text">Item</string>
+    <string name="invoice_quantity_text">Quantity</string>
+    <string name="invoice_price_text">Price</string>
+    <string name="invoice_NB">Thank you for buying</string>
+    <string name="invoice_download">Download invoice</string>
+    <string name="invoice_copyright">All right reserved Gadget Gang 2022</string>
 
 </resources>
