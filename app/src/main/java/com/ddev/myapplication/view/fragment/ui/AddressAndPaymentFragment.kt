@@ -9,6 +9,7 @@ import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.R
+import com.ddev.myapplication.adapter.AddressPaymentCartAdapter
 import com.ddev.myapplication.adapter.CartAdapter
 import com.ddev.myapplication.adapter.PaymentAdapter
 import com.ddev.myapplication.databinding.FragmentAddressAndPaymentBinding
@@ -25,15 +26,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>(FragmentAddressAndPaymentBinding::inflate),
-    PriceClickListener, ClickListener<AddToCartModel> {
+class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>(FragmentAddressAndPaymentBinding::inflate){
 
     private val adapter by lazy {
         PaymentAdapter()
     }
 
     private val cartAdapter by lazy {
-        CartAdapter(this,this)
+        AddressPaymentCartAdapter()
     }
     var list = ArrayList<PaymentMethodModel>()
     private lateinit var selectedRadioButton: RadioButton
@@ -159,13 +159,5 @@ class AddressAndPaymentFragment : BaseFragment<FragmentAddressAndPaymentBinding>
         )
         fragmentBinding.chcekoutCartRecyclerview.setHasFixedSize(true)
         fragmentBinding.chcekoutCartRecyclerview.adapter = cartAdapter
-    }
-
-    override fun priceClick(plusMinus: Int, position: Int) {
-
-    }
-
-    override fun onClick(item: AddToCartModel, position: Int) {
-
     }
 }

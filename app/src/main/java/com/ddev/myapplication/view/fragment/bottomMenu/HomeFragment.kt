@@ -1,15 +1,11 @@
 package com.ddev.myapplication.view.fragment.bottomMenu
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,22 +15,21 @@ import com.ddev.myapplication.adapter.CategoryAdapter
 import com.ddev.myapplication.adapter.ProductAdapter
 import com.ddev.myapplication.databinding.FragmentHomeBinding
 import com.ddev.myapplication.listener.CategoryListener
+import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.model.*
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
-import com.ddev.myapplication.listener.ClickListener
+import com.ddev.myapplication.util.dialog.CustomAlertDialog
+import com.ddev.myapplication.util.dialog.DynamicViewDialog
 import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -57,12 +52,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var db: FirebaseFirestore
     private lateinit var dbRef: DocumentReference
     lateinit var loadingDialog: LoadingDialog
+    private lateinit var dynamicViewDialog:DynamicViewDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         db = FirebaseFirestore.getInstance()
         loadingDialog = LoadingDialog(requireContext())
+        dynamicViewDialog = DynamicViewDialog(requireActivity(), fragmentBinding.mainRootView)
 
         //category
         categoryList.clear()
@@ -139,6 +136,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             uiBuild()
         }
 
+//        var dynamicData = DynamicProductModel("Product","Cwzz3zqB1mQD6EBgdz7B","Iphone 12 pro max","https://m.media-amazon.com/images/I/71MHTD3uL4L._FMwebp__.jpg","1200","https://m.media-amazon.com/images/I/71MHTD3uL4L._FMwebp__.jpg")
+//        db.collection("DynamicView").add(dynamicData)
+
+        db.collection("DynamicView").document("vffybaITuQCD9NzRjeRP").get().addOnCompleteListener {task ->
+            if (task.isSuccessful && task != null) {
+                var data = task.result.toObject(DynamicProductModel::class.java)
+                var name = data!!.dynamicProductName
+                var price = data!!.dynamicProductPrice
+                var image = data!!.dynamicProductImage
+                if (data?.dynamicViewName.equals("Product")){
+                    dynamicViewDialog.showDynamicProduct(name,price!!,image!!)
+                }else if (data?.dynamicViewName.equals("FullImage")){
+
+                }
+            }
+        }
 
         fragmentBinding.searchProduct.setOnClickListener {
             var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
@@ -176,6 +189,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 trendingAdapter.notifyDataSetChanged()
             }
         }
+
+
 
 
     }
