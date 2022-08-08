@@ -17,6 +17,7 @@
         app:cardElevation="@dimen/login_editext_border_margin_top">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/productCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -31,7 +32,7 @@
 <!--                app:srcCompat="@drawable/item_background_drawable" />-->
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView5"
+                android:id="@+id/productImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="8dp"
@@ -43,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView4"
+                android:id="@+id/productName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -55,10 +56,10 @@
                 app:fontFamily="@font/gothammedium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView5" />
+                app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView5"
+                android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -68,12 +69,12 @@
                 android:textSize="@dimen/product_name_text"
                 app:fontFamily="@font/gothambold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView4"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintEnd_toEndOf="@+id/productName"
+                app:layout_constraintStart_toStartOf="@+id/productName"
+                app:layout_constraintTop_toBottomOf="@+id/productName" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView6"
+                android:id="@+id/productRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/login_editext_border_margin_top"
@@ -85,21 +86,36 @@
                 app:fontFamily="@font/gothammedium"
                 app:layout_constraintBottom_toTopOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/appCompatImageView5"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/productRatingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/product_rating_color"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                app:layout_constraintEnd_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toTopOf="@+id/textView6"
+                app:layout_constraintBottom_toBottomOf="@+id/productRating"
+                app:layout_constraintEnd_toStartOf="@+id/productRating"
+                app:layout_constraintTop_toTopOf="@+id/productRating"
                 app:srcCompat="@drawable/ic_baseline_star_rate_24" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/stockOutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/product_stock"
+                android:textColor="@color/stock_out_color"
+                android:textSize="@dimen/product_name_text"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

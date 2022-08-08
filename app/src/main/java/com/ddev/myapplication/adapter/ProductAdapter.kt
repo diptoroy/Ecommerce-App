@@ -1,5 +1,6 @@
 package com.ddev.myapplication.adapter
 
+import android.view.View
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.TrendingRowBinding
 import com.ddev.myapplication.model.product.ProductModel
@@ -14,9 +15,22 @@ class ProductAdapter(var clickListener: ClickListener<ProductModel>): BaseAdapte
         position: Int
     ) {
         holder.binding.product = itemList[position]
-        holder.itemView.setOnClickListener {
-            clickListener.onClick(itemList[position],position)
-            notifyDataSetChanged()
+
+
+        if(itemList[position].isStock != false){
+            holder.itemView.setOnClickListener {
+                clickListener.onClick(itemList[position],position)
+                notifyDataSetChanged()
+            }
+        }else{
+            holder.binding.apply {
+                productName.visibility = View.GONE
+                productPrice.visibility = View.GONE
+                productRatingText.visibility = View.GONE
+                productRating.visibility = View.GONE
+                stockOutText.visibility = View.VISIBLE
+                productImage.alpha = 0.3f
+            }
         }
     }
 

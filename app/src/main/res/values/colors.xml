@@ -20,5 +20,6 @@
 
     <color name="product_details_text_color">#8BC34A</color>
     <color name="checkout_success_color">#8DAE68</color>
+    <color name="stock_out_color">#F44336</color>
 
 </resources>

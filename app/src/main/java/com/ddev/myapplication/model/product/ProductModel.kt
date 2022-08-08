@@ -19,5 +19,6 @@ data class ProductModel(
     var isRating:Boolean? = null,
     var productDesc:String? = null,
     var productSpecification:@RawValue List<SpecModel>? = null,
-    var productColor:@RawValue List<ColorModel>? = null
+    var productColor:@RawValue List<ColorModel>? = null,
+    var isStock:Boolean? = null
 ):Parcelable

@@ -41,6 +41,7 @@
     <string name="product_rating">4.6</string>
     <string name="product_color">Select Color</string>
     <string name="product_details">Color</string>
+    <string name="product_stock">Out of Stock</string>
     <string name="product_specification">Specification</string>
     <string name="productDesc">Beats Solo3 Wireless on-ear headphones immerse you in rich, award-winning sound, everywhere you want to go</string>
 

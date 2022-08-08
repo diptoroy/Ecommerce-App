@@ -24,6 +24,7 @@ import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
 import com.ddev.myapplication.listener.ClickListener
+import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
@@ -55,11 +56,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private lateinit var db: FirebaseFirestore
     private lateinit var dbRef: DocumentReference
+    lateinit var loadingDialog: LoadingDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         db = FirebaseFirestore.getInstance()
+        loadingDialog = LoadingDialog(requireContext())
 
         //category
         categoryList.clear()
@@ -130,7 +133,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
         categoryAdapter.addItems(categoryList)
-        // showTrendingProducts()
+         //showTrendingProducts()
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             uiBuild()
@@ -164,10 +167,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         productList.clear()
 
+        loadingDialog.show()
         productViewModel.getAllProduct()
         productViewModel.productViewState.collect {productsList ->
             if (productsList != null) {
                 trendingAdapter.addItems(productsList)
+                loadingDialog.dismiss()
                 trendingAdapter.notifyDataSetChanged()
             }
         }
@@ -180,7 +185,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         var document = db.collection("Products").document()
         var productId = document.id
         var productImage = ArrayList<ProductViewPagerModel>()
-        productImage.add(ProductViewPagerModel("https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MX472?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=1570119347612"))
+        productImage.add(ProductViewPagerModel("https://en.wikipedia.org/wiki/Canon_EOS_60D#/media/File:Canon_EOS_60D_01.jpg"))
         productImage.add(ProductViewPagerModel("https://i5.wal.co/asr/098a8946-5d0a-4c9a-b419-cc8f23a271e2_1.221e5f2761a4e6cb5ffeb80e13963c5b.png?odnBg=ffffff&odnHeight=612&odnWidth=612"))
         var productColor = ArrayList<ColorModel>()
         productColor.add(ColorModel("Red", "#F90000"))
@@ -192,11 +197,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         var data = ProductModel(
             productId,
-            "Headphone",
+            "Photography",
             productImage,
-            "Beats 2022",
-            "300",
-            "2.5",
+            "Cannon 60D",
+            "1299",
+            "5.0",
             false,
             "Nothing in desc",
             productSpec,
