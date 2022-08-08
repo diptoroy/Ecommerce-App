@@ -1,11 +1,15 @@
 package com.ddev.myapplication.view.fragment.bottomMenu
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,9 +27,13 @@ import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -43,6 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         ProductAdapter(this)
     }
     var categoryList = ArrayList<CategoryModel>()
+    private lateinit var productList: ArrayList<ProductModel>;
 
     private lateinit var db: FirebaseFirestore
     private lateinit var dbRef: DocumentReference
@@ -126,6 +135,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             uiBuild()
         }
+
+
+        fragmentBinding.searchProduct.setOnClickListener {
+            var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+            var action = HomePageFragmentDirections.actionHomePageFragmentToProductSearchFragment()
+            navController.navigate(action)
+        }
+
     }
 
 
@@ -137,7 +154,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         fragmentBinding.categoryRecyclerView.setHasFixedSize(true)
         fragmentBinding.categoryRecyclerView.adapter = categoryAdapter
 
-        var productList = ArrayList<ProductModel>()
+        productList = ArrayList<ProductModel>()
         productList.clear()
         fragmentBinding.trendingRecyclerView.layoutManager = GridLayoutManager(activity, 2)
         fragmentBinding.trendingRecyclerView.setHasFixedSize(true)
@@ -156,8 +173,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
 
 
-
     }
+
 
     private fun showTrendingProducts() {
         var document = db.collection("Products").document()
@@ -191,6 +208,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }.addOnFailureListener { it ->
             Log.i("Products", "onViewCreated: $it")
         }
+
+
     }
 
     private fun randomProductID(): String = List(8) {
@@ -211,5 +230,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         var action = HomePageFragmentDirections.actionHomePageFragmentToProductCategoryFragment(item)
         navController.navigate(action)
     }
+
+
 
 }

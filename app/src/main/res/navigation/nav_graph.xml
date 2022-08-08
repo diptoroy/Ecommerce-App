@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_productCategoryFragment"
             app:destination="@id/productCategoryFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_productSearchFragment"
+            app:destination="@id/productSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -179,5 +182,16 @@
             app:argType="com.ddev.myapplication.model.CategoryModel"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_productCategoryFragment_to_productDetailsFragment2"
+            app:destination="@id/productDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/productSearchFragment"
+        android:name="com.ddev.myapplication.view.fragment.ui.ProductSearchFragment"
+        android:label="ProductSearchFragment" >
+        <action
+            android:id="@+id/action_productSearchFragment_to_productDetailsFragment2"
+            app:destination="@id/productDetailsFragment2" />
     </fragment>
 </navigation>

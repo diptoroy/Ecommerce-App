@@ -6,6 +6,7 @@
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.2065" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2065" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/drawable/notification_badge.xml" value="0.2065" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/drawable/searchview.xml" value="0.1915" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/drawable/shipment_process_background.xml" value="0.2065" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/drawable/table_row.xml" value="0.218" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/drawable/test2.xml" value="0.1215" />
@@ -23,10 +24,12 @@
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_favorite.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_home.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_home_page.xml" value="0.4" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_on_boarding.xml" value="0.2222222222222222" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_order.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_order_details.xml" value="0.2" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_product_category.xml" value="0.2222222222222222" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_product_details.xml" value="0.25" />
+        <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/fragment_product_search.xml" value="0.2222222222222222" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/invoice_item_row.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/invoice_layout.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/Dipto/AndroidStudioProjects/Personal/Ecommerce-App/app/src/main/res/layout/order_group_row.xml" value="0.23822463768115942" />

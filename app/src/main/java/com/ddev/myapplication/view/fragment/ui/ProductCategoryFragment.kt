@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.SavedStateViewModelFactory
+import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ddev.myapplication.R
@@ -18,6 +19,7 @@ import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.simple_toolbar.view.*
 
 class ProductCategoryFragment :
     BaseFragment<FragmentProductCategoryBinding>(FragmentProductCategoryBinding::inflate),
@@ -55,6 +57,7 @@ class ProductCategoryFragment :
 
         var categoryName = args.categoryModel!!.categoryName
 
+        fragmentBinding.toolbar.toolbarTitle.text = categoryName
 
         db.collection("Products").whereEqualTo("productCategory", categoryName)
             .addSnapshotListener { value, error ->
@@ -73,6 +76,9 @@ class ProductCategoryFragment :
     }
 
     override fun onClick(item: ProductModel, position: Int) {
-
+        var navController =
+            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+        var action = ProductCategoryFragmentDirections.actionProductCategoryFragmentToProductDetailsFragment2(item)
+        navController.navigate(action)
     }
 }

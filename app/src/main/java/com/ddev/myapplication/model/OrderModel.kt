@@ -13,5 +13,6 @@ data class OrderModel(
     var orderDate:String? = null,
     var totalPrice:Int? = null,
     var orderStatus:String? = null,
-    var orderShipmentProcessModel: List<ShipmentProcessModel>? = null
+    var orderShipmentProcessModel: List<ShipmentProcessModel>? = null,
+    var orderDeliveryDate:String? = null
 ):Parcelable

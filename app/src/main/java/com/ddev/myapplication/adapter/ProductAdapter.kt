@@ -20,4 +20,9 @@ class ProductAdapter(var clickListener: ClickListener<ProductModel>): BaseAdapte
         }
     }
 
+    fun filterList(filterList: ArrayList<ProductModel>) {
+        itemList = filterList
+        notifyDataSetChanged()
+    }
+
 }
