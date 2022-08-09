@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ddev.myapplication.Application.EcommerceApp
 import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.CategoryAdapter
 import com.ddev.myapplication.adapter.ProductAdapter
@@ -153,6 +154,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
+
         fragmentBinding.searchProduct.setOnClickListener {
             var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
             var action = HomePageFragmentDirections.actionHomePageFragmentToProductSearchFragment()
@@ -160,6 +162,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
 
     }
+
+
 
 
     private suspend fun uiBuild() {
