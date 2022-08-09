@@ -148,7 +148,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 if (data?.dynamicViewName.equals("Product")){
                     dynamicViewDialog.showDynamicProduct(name,price!!,image!!)
                 }else if (data?.dynamicViewName.equals("FullImage")){
-
+                    dynamicViewDialog.showDynamicImage(image!!)
                 }
             }
         }
