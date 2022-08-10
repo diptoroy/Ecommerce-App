@@ -1,4 +1,4 @@
-package com.ddev.myapplication.view.fragment.ui
+package com.ddev.myapplication.view.fragment.ui.orderUi
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,6 @@ import com.ddev.myapplication.adapter.OrderGroupAdapter
 import com.ddev.myapplication.databinding.FragmentOrderBinding
 import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.listener.ClickListener
-import com.ddev.myapplication.model.ShipmentProcessModel
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

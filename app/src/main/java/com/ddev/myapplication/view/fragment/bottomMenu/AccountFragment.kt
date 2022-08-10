@@ -24,7 +24,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
     private fun buildUi() {
         fragmentBinding.OrderBtn.setOnClickListener {
             var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
-            var action = HomePageFragmentDirections.actionHomePageFragmentToOrderFragment()
+            var action = HomePageFragmentDirections.actionHomePageFragmentToOrderUiFragment()
             navController.navigate(action)
         }
     }

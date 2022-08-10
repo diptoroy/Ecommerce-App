@@ -1,4 +1,4 @@
-package com.ddev.myapplication.view.fragment.ui
+package com.ddev.myapplication.view.fragment.ui.orderUi
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.adapter.OrderDetailsAdapter
 import com.ddev.myapplication.adapter.ShipmentProcessAdapter
 import com.ddev.myapplication.databinding.FragmentOrderDetailsBinding
-import com.ddev.myapplication.model.AddToCartModel
 import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.util.PdfConverter
 import com.ddev.myapplication.view.fragment.BaseFragment

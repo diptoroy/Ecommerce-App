@@ -51,7 +51,7 @@
     <string name="add_to_cart_success_sub_title">Successfully this product added to the Cart</string>
     <string name="add_to_cart_fail_title">Sorry!</string>
     <string name="add_to_cart_fail_sub_title">Failed to add the Cart</string>
-    <string name="hello_blank_fragment">nothing</string>
+    <string name="hello_blank_fragment">Delivery</string>
 
     <!-- order-->
     <string name="shippining_addreess_text">Shipping Address</string>
