@@ -3,6 +3,8 @@ package com.ddev.myapplication.util.dialog
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.wifi.WifiManager
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,8 @@ class ConnectivityDialog: Dialog {
     }
 
     private fun doConfig() {
+        this.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         dialogLayoutBinding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
             R.layout.connectivity_dialog,

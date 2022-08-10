@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ddev.myapplication.model.AddToCartModel
+import com.ddev.myapplication.model.DynamicProductModel
 import com.ddev.myapplication.model.FavoriteModel
 import com.ddev.myapplication.model.product.ProductModel
 import com.ddev.myapplication.util.State
@@ -23,6 +24,9 @@ class DataReceiveViewModel : ViewModel() {
     private val _productViewState: MutableStateFlow<List<ProductModel>?> = MutableStateFlow(null)
     val productViewState: StateFlow<List<ProductModel>?> = _productViewState
     private var productList = ArrayList<ProductModel>()
+
+    private val _dynamicViewState: MutableStateFlow<ProductModel?> = MutableStateFlow(null)
+    val dynamicViewState: MutableStateFlow<ProductModel?> = _dynamicViewState
 
     private val _categoryViewState: MutableStateFlow<List<ProductModel>?> = MutableStateFlow(null)
     val categoryViewState: StateFlow<List<ProductModel>?> = _categoryViewState
@@ -47,6 +51,19 @@ class DataReceiveViewModel : ViewModel() {
             }
 
         }
+    }
+
+    suspend fun getDynamicProduct(productId: String) {
+        db.collection("Products").document(productId).get().addOnCompleteListener { task ->
+            if (task.isSuccessful){
+                var data = task.result.toObject(ProductModel::class.java)
+                viewModelScope.launch {
+                    _dynamicViewState.emit(data)
+                }
+            }
+        }
+
+
     }
 
     suspend fun getCartProducts(){

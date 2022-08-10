@@ -38,7 +38,7 @@ object PrefHelper {
     }
 
     //For Boolean
-    fun getValue(key:String,value:Boolean):Boolean{
+    fun getValue(key:String,value:Boolean):Boolean?{
         return prefs.getBoolean(key,value)
     }
 
@@ -47,6 +47,7 @@ object PrefHelper {
         with(prefEditor){
             putBoolean(key,value)
             commit()
+            apply()
         }
     }
 }

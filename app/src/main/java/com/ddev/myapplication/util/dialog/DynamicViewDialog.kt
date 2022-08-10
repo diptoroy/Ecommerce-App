@@ -11,7 +11,9 @@ import androidx.databinding.DataBindingUtil
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.CustomDialogLayoutBinding
 import com.ddev.myapplication.databinding.DynamicViewBinding
+import com.ddev.myapplication.model.product.ProductModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.specifications_row.*
 
 class DynamicViewDialog:Dialog {
 
@@ -45,8 +47,8 @@ class DynamicViewDialog:Dialog {
             false
         )
 
-        dynamicDialogLayoutBinding!!.dynamicViewRoot.minimumWidth =
-            context.resources.displayMetrics.widthPixels
+//        dynamicDialogLayoutBinding!!.dynamicViewRoot.minimumWidth =
+//            context.resources.displayMetrics.widthPixels
 
         dynamicDialogLayoutBinding!!.dynamicProductImage.visibility = View.GONE
         dynamicDialogLayoutBinding!!.dynamicProductName.visibility = View.GONE
@@ -74,7 +76,7 @@ class DynamicViewDialog:Dialog {
     }
 
     private fun setDynamicImage(image: String) {
-        Picasso.get().load(image).into(dynamicDialogLayoutBinding!!.dynamicFullImageView);
+        Picasso.get().load(image).into(dynamicDialogLayoutBinding!!.dynamicFullImageView)
         dynamicDialogLayoutBinding!!.dynamicFullImageView.visibility = View.VISIBLE
     }
 

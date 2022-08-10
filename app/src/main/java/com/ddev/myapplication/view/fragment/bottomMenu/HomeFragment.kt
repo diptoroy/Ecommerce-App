@@ -1,11 +1,12 @@
 package com.ddev.myapplication.view.fragment.bottomMenu
 
+import android.app.ActivityManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.SavedStateViewModelFactory
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,6 +22,7 @@ import com.ddev.myapplication.model.*
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
+import com.ddev.myapplication.util.PrefHelper
 import com.ddev.myapplication.util.dialog.CustomAlertDialog
 import com.ddev.myapplication.util.dialog.DynamicViewDialog
 import com.ddev.myapplication.util.dialog.LoadingDialog
@@ -29,8 +31,11 @@ import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import java.util.*
+import kotlin.math.log
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -47,9 +52,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val trendingAdapter by lazy {
         ProductAdapter(this)
     }
-    var categoryList = ArrayList<CategoryModel>()
+//    var categoryList = ArrayList<CategoryModel>()
     private lateinit var productList: ArrayList<ProductModel>;
 
+    private var timer: CountDownTimer? = null
     private lateinit var db: FirebaseFirestore
     private lateinit var dbRef: DocumentReference
     lateinit var loadingDialog: LoadingDialog
@@ -58,102 +64,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        PrefHelper.init(requireContext())
+
         db = FirebaseFirestore.getInstance()
         loadingDialog = LoadingDialog(requireContext())
         dynamicViewDialog = DynamicViewDialog(requireActivity(), fragmentBinding.mainRootView)
 
-        //category
-        categoryList.clear()
-        categoryList.add(
-            CategoryModel(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.smartphoneicon,
-                    null
-                )!!, getString(R.string.category_1)
-            )
-        )
-        categoryList.add(
-            CategoryModel(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.laptopicon,
-                    null
-                )!!, getString(R.string.category_2)
-            )
-        )
-        categoryList.add(
-            CategoryModel(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.smartwatchicon,
-                    null
-                )!!, getString(R.string.category_3)
-            )
-        )
-        categoryList.add(
-            CategoryModel(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.headphonesicon,
-                    null
-                )!!, getString(R.string.category_4)
-            )
-        )
-        categoryList.add(
-            CategoryModel(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.cameraicon,
-                    null
-                )!!, getString(R.string.category_5)
-            )
-        )
-        categoryList.add(
-            CategoryModel(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.videogameicon,
-                    null
-                )!!, getString(R.string.category_6)
-            )
-        )
-        categoryList.add(
-            CategoryModel(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.accessoriesicon,
-                    null
-                )!!, getString(R.string.category_7)
-            )
-        )
-
-
-
-        categoryAdapter.addItems(categoryList)
+        categoryAdapter.addItems(category())
          //showTrendingProducts()
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             uiBuild()
         }
 
-//        var dynamicData = DynamicProductModel("Product","Cwzz3zqB1mQD6EBgdz7B","Iphone 12 pro max","https://m.media-amazon.com/images/I/71MHTD3uL4L._FMwebp__.jpg","1200","https://m.media-amazon.com/images/I/71MHTD3uL4L._FMwebp__.jpg")
-//        db.collection("DynamicView").add(dynamicData)
-
-        db.collection("DynamicView").document("vffybaITuQCD9NzRjeRP").get().addOnCompleteListener {task ->
-            if (task.isSuccessful && task != null) {
-                var data = task.result.toObject(DynamicProductModel::class.java)
-                var name = data!!.dynamicProductName
-                var price = data!!.dynamicProductPrice
-                var image = data!!.dynamicProductImage
-                if (data?.dynamicViewName.equals("Product")){
-                    dynamicViewDialog.showDynamicProduct(name,price!!,image!!)
-                }else if (data?.dynamicViewName.equals("FullImage")){
-                    dynamicViewDialog.showDynamicImage(image!!)
-                }
-            }
-        }
-
+        //dynamicView()
 
         fragmentBinding.searchProduct.setOnClickListener {
             var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
@@ -161,10 +85,68 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             navController.navigate(action)
         }
 
+        lifecycle.addObserver(object: DefaultLifecycleObserver {
+            override fun onStart(owner: LifecycleOwner) {
+                super.onStart(owner)
+                PrefHelper.setValue("background", false)
+            }
+            override fun onStop(owner: LifecycleOwner) {
+                super.onStop(owner)
+                PrefHelper.setValue("background", true)
+                dynamicView()
+            }
+        })
     }
 
+    private fun dynamicView() {
+        //        var dynamicData = DynamicProductModel("Product","Cwzz3zqB1mQD6EBgdz7B","Iphone 12 pro max","https://m.media-amazon.com/images/I/71MHTD3uL4L._FMwebp__.jpg","1200","https://m.media-amazon.com/images/I/71MHTD3uL4L._FMwebp__.jpg")
+//        db.collection("DynamicView").add(dynamicData)
 
+        db.collection("DynamicView").document("vffybaITuQCD9NzRjeRP").get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful && task != null) {
+                    var data = task.result.toObject(DynamicProductModel::class.java)
+                    var name = data!!.dynamicProductName
+                    var price = data!!.dynamicProductPrice
+                    var image = data!!.dynamicProductImage
+                    var id = data!!.dynamicProductId
+                    if (data?.dynamicViewName.equals("Product")) {
+                        dynamicViewDialog.showDynamicProduct(name, price!!, image!!)
+                    } else if (data?.dynamicViewName.equals("FullImage")) {
+                        db.collection("Products").document(id!!).get()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    var data = task.result.toObject(ProductModel::class.java)
+                                    dynamicViewDialog.showDynamicImage(image!!)
+                                    dynamicViewDialog.setOnRootClickListener{
+                                        dynamicViewDialog.dismiss()
+                                        var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+                                        var action = HomePageFragmentDirections.actionHomePageFragmentToProductDetailsFragment2(data!!)
+                                        navController.navigate(action)
+                                    }
+                                }
+                            }
 
+                    } else if (data?.dynamicViewName.equals("view")) {
+                        fragmentBinding.demoDynamic.visibility = View.VISIBLE
+                        Picasso.get().load(image).into(fragmentBinding!!.demoDynamic)
+                        fragmentBinding.demoDynamic.setOnClickListener {
+                            db.collection("Products").document(id!!).get()
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        var data = task.result.toObject(ProductModel::class.java)
+                                        var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+                                        var action = HomePageFragmentDirections.actionHomePageFragmentToProductDetailsFragment2(data!!)
+                                        navController.navigate(action)
+                                    }
+                                }
+                        }
+                    }else{
+
+                    }
+                }
+            }
+    }
 
     private suspend fun uiBuild() {
         fragmentBinding.categoryRecyclerView.layoutManager = LinearLayoutManager(
@@ -194,11 +176,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-
-
-
     }
 
+    private fun category():List<CategoryModel>{
+        var categoryList = ArrayList<CategoryModel>()
+        categoryList.clear()
+        categoryList.add(CategoryModel(ResourcesCompat.getDrawable(resources, R.drawable.smartphoneicon, null)!!, getString(R.string.category_1)))
+        categoryList.add(CategoryModel(ResourcesCompat.getDrawable(resources, R.drawable.laptopicon, null)!!, getString(R.string.category_2)))
+        categoryList.add(CategoryModel(ResourcesCompat.getDrawable(resources, R.drawable.smartwatchicon, null)!!, getString(R.string.category_3)))
+        categoryList.add(CategoryModel(ResourcesCompat.getDrawable(resources, R.drawable.headphonesicon, null)!!, getString(R.string.category_4)))
+        categoryList.add(CategoryModel(ResourcesCompat.getDrawable(resources,R.drawable.cameraicon,null)!!, getString(R.string.category_5)))
+        categoryList.add(CategoryModel(ResourcesCompat.getDrawable(resources, R.drawable.videogameicon, null)!!, getString(R.string.category_6)))
+        categoryList.add(CategoryModel(ResourcesCompat.getDrawable(resources, R.drawable.accessoriesicon, null)!!, getString(R.string.category_7)))
+        return categoryList
+    }
 
     private fun showTrendingProducts() {
         var document = db.collection("Products").document()
@@ -214,18 +205,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         productSpec.add(SpecModel("Ram", "None"))
 
 
-        var data = ProductModel(
-            productId,
-            "Photography",
-            productImage,
-            "Cannon 60D",
-            "1299",
-            "5.0",
-            false,
-            "Nothing in desc",
-            productSpec,
-            productColor
-        )
+        var data = ProductModel(productId, "Photography", productImage, "Cannon 60D", "1299", "5.0", false, "Nothing in desc", productSpec, productColor)
         Log.i("data", "showTrendingProducts: $data")
         db.collection("Products").document(productId).set(data).addOnSuccessListener { result ->
             Log.i("Products", "onViewCreated: $result")
@@ -241,20 +221,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }.joinToString("")
 
     override fun onClick(item: ProductModel, position: Int) {
-        var navController =
-            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
-        var action =
-            HomePageFragmentDirections.actionHomePageFragmentToProductDetailsFragment2(item)
+        var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+        var action = HomePageFragmentDirections.actionHomePageFragmentToProductDetailsFragment2(item)
         navController.navigate(action)
     }
 
     override fun onCategoryClick(item: CategoryModel, position: Int) {
-        var navController =
-            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+        var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
         var action = HomePageFragmentDirections.actionHomePageFragmentToProductCategoryFragment(item)
         navController.navigate(action)
     }
-
-
 
 }
