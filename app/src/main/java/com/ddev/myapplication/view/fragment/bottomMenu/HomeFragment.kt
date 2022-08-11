@@ -52,7 +52,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val trendingAdapter by lazy {
         ProductAdapter(this)
     }
-//    var categoryList = ArrayList<CategoryModel>()
     private lateinit var productList: ArrayList<ProductModel>;
 
     private var timer: CountDownTimer? = null
@@ -83,6 +82,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
             var action = HomePageFragmentDirections.actionHomePageFragmentToProductSearchFragment()
             navController.navigate(action)
+        }
+
+        fragmentBinding.refreshLayout.setOnRefreshListener {
+            trendingAdapter.notifyDataSetChanged()
+            fragmentBinding.refreshLayout.isRefreshing = false
         }
 
         lifecycle.addObserver(object: DefaultLifecycleObserver {

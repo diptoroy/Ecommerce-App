@@ -151,11 +151,7 @@
     <fragment
         android:id="@+id/orderFragment"
         android:name="com.ddev.myapplication.view.fragment.ui.orderUi.OrderFragment"
-        android:label="OrderFragment" >
-        <action
-            android:id="@+id/action_orderFragment_to_orderDetailsFragment"
-            app:destination="@id/orderDetailsFragment" />
-    </fragment>
+        android:label="OrderFragment" />
     <fragment
         android:id="@+id/checkOutFragment"
         android:name="com.ddev.myapplication.view.fragment.ui.CheckOutFragment"
@@ -200,5 +196,13 @@
     <fragment
         android:id="@+id/orderUiFragment"
         android:name="com.ddev.myapplication.view.fragment.ui.orderUi.OrderUiFragment"
-        android:label="OrderUiFragment" />
+        android:label="OrderUiFragment" >
+        <action
+            android:id="@+id/action_orderUiFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDeliveryFragment"
+        android:name="com.ddev.myapplication.view.fragment.ui.orderUi.OrderDeliveryFragment"
+        android:label="OrderDeliveryFragment" />
 </navigation>

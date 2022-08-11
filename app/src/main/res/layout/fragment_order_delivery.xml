@@ -10,14 +10,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/fragment_background"
         tools:context=".view.fragment.ui.orderUi.OrderDeliveryFragment">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"
-            android:textSize="@dimen/text_22sp"
-            android:gravity="center"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/deliveryRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

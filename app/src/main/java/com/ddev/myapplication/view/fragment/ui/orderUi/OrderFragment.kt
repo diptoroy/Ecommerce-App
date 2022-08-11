@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.OrderGroupAdapter
 import com.ddev.myapplication.databinding.FragmentOrderBinding
 import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.view.fragment.BaseFragment
+import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
@@ -28,18 +32,18 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::i
     private lateinit var currentUserId: String
 
     private var orderList = ArrayList<OrderModel>()
-    private lateinit var navController: NavController
+   // private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        navController = findNavController()
+       // navController = findNavController()
         db = FirebaseFirestore.getInstance()
         currentUser = FirebaseAuth.getInstance().currentUser!!
         currentUserId = currentUser.uid
 
         orderList.clear()
-        db.collection("Users").document(currentUserId).collection("Order").addSnapshotListener { value, error ->
+        db.collection("Users").document(currentUserId).collection("Order").whereNotEqualTo("orderStatus","Received").addSnapshotListener { value, error ->
             for (doc: DocumentChange in value!!.documentChanges) {
                 orderList.add(doc.document.toObject(OrderModel::class.java))
                 adapter.addItems(orderList)
@@ -60,7 +64,8 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::i
     }
 
     override fun onClick(item: OrderModel, position: Int) {
-        var action = OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment(item)
+        var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+        var action = OrderUiFragmentDirections.actionOrderUiFragmentToOrderDetailsFragment(item)
         navController.navigate(action)
     }
 }

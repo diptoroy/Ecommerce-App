@@ -8,86 +8,115 @@
     </data>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainRootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/fragment_background"
+
         tools:context=".view.fragment.bottomMenu.HomeFragment">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/searchProduct"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_8dp"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:layout_marginEnd="@dimen/size_8dp"
-            android:background="@drawable/searchview"
-            android:drawableStart="@drawable/ic_baseline_search_24"
-            android:drawablePadding="10dp"
-            android:hint="Search here"
-            android:gravity="center_vertical"
-            android:inputType="text"
-            android:longClickable="false"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/login_editext_border_margin_top"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:text="@string/category_title"
-            android:textSize="@dimen/login_editext_size"
-            app:fontFamily="@font/gothammedium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchProduct" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoryRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/login_editext_border_margin_top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/demoDynamic"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_200dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categoryRecyclerView" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/trendingTextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/login_editext_border_margin_top"
-            android:layout_marginTop="16dp"
-            android:text="@string/trending_title"
-            android:textSize="@dimen/login_editext_size"
-            app:fontFamily="@font/gothammedium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/demoDynamic" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trendingRecyclerView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/login_editext_border_margin_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trendingTextview" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/fragment_background">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/searchProduct"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_8dp"
+                    android:layout_marginTop="@dimen/size_8dp"
+                    android:layout_marginEnd="@dimen/size_8dp"
+                    android:background="@drawable/searchview"
+                    android:drawableStart="@drawable/ic_baseline_search_24"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="Search here"
+                    android:inputType="text"
+                    android:longClickable="false"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/searchProduct">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/appCompatTextView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/category_title"
+                            android:textSize="@dimen/login_editext_size"
+                            app:fontFamily="@font/gothammedium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/categoryRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/login_editext_border_margin_top"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/demoDynamic"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_200dp"
+                            android:layout_marginTop="8dp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/categoryRecyclerView" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/trendingTextview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/login_editext_border_margin_top"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/trending_title"
+                            android:textSize="@dimen/login_editext_size"
+                            app:fontFamily="@font/gothammedium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/demoDynamic" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/trendingRecyclerView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/login_editext_border_margin_top"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/trendingTextview" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

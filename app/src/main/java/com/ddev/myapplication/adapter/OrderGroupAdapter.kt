@@ -59,6 +59,7 @@ class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
 
                 }
             }
+
     }
 
     private fun setUpRecyclerView(holder: BaseAdapter.Companion.BaseViewHolder<OrderGroupRowBinding>) {
