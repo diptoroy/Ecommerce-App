@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/mainRootView"
         android:background="@color/fragment_background"
         tools:context=".view.fragment.ui.ProductCategoryFragment">
 
@@ -24,10 +25,20 @@
             android:id="@+id/categoryProductRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/soringBtn" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/soringBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_12dp"
+            android:layout_marginEnd="@dimen/size_12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:srcCompat="@drawable/ic_baseline_sort_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

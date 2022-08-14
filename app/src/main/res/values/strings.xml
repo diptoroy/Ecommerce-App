@@ -70,4 +70,11 @@
     <string name="invoice_download">Download invoice</string>
     <string name="invoice_copyright">All right reserved Gadget Gang 2022</string>
 
+    <!-- sorting product -->
+    <string name="sorting_by_date">Latest</string>
+    <string name="sorting_by_high_price">High price</string>
+    <string name="sorting_by_low_price">Low price</string>
+    <string name="sorting_by_rating">Top Rated</string>
+
+
 </resources>

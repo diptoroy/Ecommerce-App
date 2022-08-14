@@ -199,17 +199,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         var document = db.collection("Products").document()
         var productId = document.id
         var productImage = ArrayList<ProductViewPagerModel>()
-        productImage.add(ProductViewPagerModel("https://en.wikipedia.org/wiki/Canon_EOS_60D#/media/File:Canon_EOS_60D_01.jpg"))
+        productImage.add(ProductViewPagerModel("https://static.gadgetandgear.com/tmp/product/20220423_1650687083_966562.png"))
         productImage.add(ProductViewPagerModel("https://i5.wal.co/asr/098a8946-5d0a-4c9a-b419-cc8f23a271e2_1.221e5f2761a4e6cb5ffeb80e13963c5b.png?odnBg=ffffff&odnHeight=612&odnWidth=612"))
         var productColor = ArrayList<ColorModel>()
-        productColor.add(ColorModel("Red", "#F90000"))
+        productColor.add(ColorModel("Black", "#F90000"))
         productColor.add(ColorModel("Green", "#CFA06A"))
         var productSpec = ArrayList<SpecModel>()
         productSpec.add(SpecModel("Display", "None"))
         productSpec.add(SpecModel("Ram", "None"))
 
 
-        var data = ProductModel(productId, "Photography", productImage, "Cannon 60D", "1299", "5.0", false, "Nothing in desc", productSpec, productColor)
+        var data = ProductModel(productId, "Smartphone", productImage, "Samsung s22+", "1199", "5.0", false, "Nothing in desc", productSpec, productColor)
         Log.i("data", "showTrendingProducts: $data")
         db.collection("Products").document(productId).set(data).addOnSuccessListener { result ->
             Log.i("Products", "onViewCreated: $result")
