@@ -24,9 +24,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryProductRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/soringBtn" />
@@ -40,5 +39,74 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:srcCompat="@drawable/ic_baseline_sort_24" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sortRootView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:elevation="@dimen/size_8dp"
+            android:background="@drawable/sorting_product_row_background"
+            android:paddingRight="@dimen/size_50dp"
+            app:layout_constraintEnd_toEndOf="@+id/soringBtn"
+            app:layout_constraintTop_toTopOf="@+id/soringBtn">
+
+            <!--        <RadioGroup-->
+            <!--            android:id="@+id/sortingBtnGroup"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/sortingDateBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/sorting_by_date" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/sortingHighPriceBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/sorting_by_high_price" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/sortingLowPriceBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/sorting_by_low_price" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/sortingTopRatedBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/sorting_by_rating" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--        </RadioGroup>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <include-->
+<!--            android:id="@+id/sortView"-->
+<!--            layout="@layout/sorting_product_row"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/soringBtn"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/soringBtn" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

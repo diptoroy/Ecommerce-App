@@ -1,7 +1,10 @@
 package com.ddev.myapplication.view.fragment.ui
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,15 +13,12 @@ import com.ddev.myapplication.adapter.ProductAdapter
 import com.ddev.myapplication.databinding.FragmentProductCategoryBinding
 import com.ddev.myapplication.listener.ClickListener
 import com.ddev.myapplication.model.product.ProductModel
-import com.ddev.myapplication.util.dialog.ProductSortDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.simple_toolbar.view.*
 
-class ProductCategoryFragment :
-    BaseFragment<FragmentProductCategoryBinding>(FragmentProductCategoryBinding::inflate),
-    ClickListener<ProductModel> {
+class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(FragmentProductCategoryBinding::inflate), ClickListener<ProductModel> {
 
 //    private val categoryProductViewModel: DataReceiveViewModel by navGraphViewModels(R.id.bottom_nav) {
 //        SavedStateViewModelFactory(
@@ -34,7 +34,7 @@ class ProductCategoryFragment :
     }
     private var categoryProductList = ArrayList<ProductModel>()
     private lateinit var db: FirebaseFirestore
-    private lateinit var sortingDialog: ProductSortDialog
+    private lateinit var animatorSet: AnimatorSet
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,12 +45,19 @@ class ProductCategoryFragment :
         }
 
         db = FirebaseFirestore.getInstance()
+        animatorSet = AnimatorSet()
 
-        sortingDialog = ProductSortDialog(requireActivity())
-
+        fragmentBinding.soringBtn.setOnClickListener {
+            ObjectAnimator.ofFloat( fragmentBinding.sortRootView,View.TRANSLATION_X,180f,0f ).apply {
+                duration = 500
+                start()
+            }
+            fragmentBinding.sortRootView.visibility = View.VISIBLE
+        }
 
         buildUi(bundle)
 
+        sortViewGone()
     }
 
     private fun buildUi(bundle: Bundle) {
@@ -78,41 +85,38 @@ class ProductCategoryFragment :
     }
 
     private fun setSorting(categoryProductList: ArrayList<ProductModel>) {
-        fragmentBinding.soringBtn.setOnClickListener {
-            sortingDialog.setHighPriceBtn(View.OnClickListener {
-                categoryProductList.sortByDescending {
-                    it.productPrice?.toInt()
-                }
-                trendingAdapter.notifyDataSetChanged()
-                sortingDialog.dismiss()
-            })
+        fragmentBinding.sortingDateBtn.setOnClickListener {
+            categoryProductList.sortBy {
+                it.productRating
+            }
+            trendingAdapter.notifyDataSetChanged()
 
-            sortingDialog.setLowPriceBtn(View.OnClickListener {
-                categoryProductList.sortBy {
-                    it.productPrice?.toInt()
-                }
-                trendingAdapter.notifyDataSetChanged()
-                sortingDialog.dismiss()
-            })
-
-            sortingDialog.setLatestBtn(View.OnClickListener {
-                categoryProductList.sortBy {
-                    it.productRating
-                }
-                trendingAdapter.notifyDataSetChanged()
-                sortingDialog.dismiss()
-            })
-
-            sortingDialog.setTopRatedBtn(View.OnClickListener {
-                categoryProductList.sortBy {
-                    it.productRating?.toFloat()?.toInt()
-                }
-                trendingAdapter.notifyDataSetChanged()
-                sortingDialog.dismiss()
-            })
-            sortingDialog.show()
+            fragmentBinding.sortRootView.visibility = View.GONE
         }
 
+        fragmentBinding.sortingHighPriceBtn.setOnClickListener {
+            categoryProductList.sortByDescending {
+                it.productPrice?.toInt()
+            }
+            trendingAdapter.notifyDataSetChanged()
+            fragmentBinding.sortRootView.visibility = View.GONE
+        }
+
+        fragmentBinding.sortingLowPriceBtn.setOnClickListener {
+            categoryProductList.sortBy {
+                it.productPrice?.toInt()
+            }
+            trendingAdapter.notifyDataSetChanged()
+            fragmentBinding.sortRootView.visibility = View.GONE
+        }
+
+        fragmentBinding.sortingTopRatedBtn.setOnClickListener {
+            categoryProductList.sortByDescending {
+                it.productRating?.toFloat()?.toInt()
+            }
+            trendingAdapter.notifyDataSetChanged()
+            fragmentBinding.sortRootView.visibility = View.GONE
+        }
     }
 
     override fun onClick(item: ProductModel, position: Int) {
@@ -121,4 +125,40 @@ class ProductCategoryFragment :
         var action = ProductCategoryFragmentDirections.actionProductCategoryFragmentToProductDetailsFragment2(item)
         navController.navigate(action)
     }
+
+    private fun sortViewGone() {
+        fragmentBinding.mainRootView.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when(event?.action){
+                    MotionEvent.ACTION_UP -> fragmentBinding.sortRootView.visibility = View.GONE
+                    MotionEvent.ACTION_DOWN -> fragmentBinding.sortRootView.visibility = View.GONE
+                    MotionEvent.ACTION_MOVE -> fragmentBinding.sortRootView.visibility = View.GONE
+                }
+                return true
+            }
+        })
+
+        fragmentBinding.toolbar.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when(event?.action){
+                    MotionEvent.ACTION_UP -> fragmentBinding.sortRootView.visibility = View.GONE
+                    MotionEvent.ACTION_DOWN -> fragmentBinding.sortRootView.visibility = View.GONE
+                    MotionEvent.ACTION_MOVE -> fragmentBinding.sortRootView.visibility = View.GONE
+                }
+                return true
+            }
+        })
+
+        fragmentBinding.categoryProductRecyclerView.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                when(event?.action){
+                    MotionEvent.ACTION_UP -> fragmentBinding.sortRootView.visibility = View.GONE
+                    MotionEvent.ACTION_DOWN -> fragmentBinding.sortRootView.visibility = View.GONE
+                    MotionEvent.ACTION_MOVE -> fragmentBinding.sortRootView.visibility = View.GONE
+                }
+                return true
+            }
+        })
+    }
+
 }

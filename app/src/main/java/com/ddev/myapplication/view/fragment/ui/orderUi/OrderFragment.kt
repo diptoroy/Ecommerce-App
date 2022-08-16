@@ -20,8 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
-class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::inflate),
-    ClickListener<OrderModel> {
+class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::inflate), ClickListener<OrderModel> {
 
     private val adapter by lazy {
         OrderGroupAdapter(this)
@@ -55,10 +54,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::i
     }
 
     private fun setUpRecyclerView() {
-        fragmentBinding.orderRecyclerView.layoutManager = LinearLayoutManager(
-            activity,
-            LinearLayoutManager.VERTICAL, false
-        )
+        fragmentBinding.orderRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         fragmentBinding.orderRecyclerView.setHasFixedSize(true)
         fragmentBinding.orderRecyclerView.adapter = adapter
     }

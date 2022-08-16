@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 
 class OrderDeliveryFragment : BaseFragment<FragmentOrderDeliveryBinding>(FragmentOrderDeliveryBinding::inflate), ClickListener<OrderModel> {
 

@@ -58,6 +58,11 @@
     <string name="total_balance_text">Total Balance</string>
     <string name="shipment_process_text">Shipment Process</string>
 
+    <!-- rating-->
+    <string name="rating_title">Rating</string>
+    <string name="rating_text">Please give your rating</string>
+    <string name="rating_desc_text">Please write something...</string>
+
     <!-- network -->
     <string name="no_network_text">No Internet</string>
     <string name="setting_text">Go to Setting</string>

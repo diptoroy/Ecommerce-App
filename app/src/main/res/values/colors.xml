@@ -24,4 +24,6 @@
 
     <color name="tab_text_color">#595C80</color>
     <color name="tab_selected_text_color">#0DCB82</color>
+
+    <color name="divider">#BDBDBD</color>
 </resources>

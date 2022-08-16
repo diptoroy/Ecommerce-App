@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainRootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/fragment_background"
@@ -193,8 +194,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-
-                    android:id="@+id/cardView2"
+                    android:id="@+id/shipmentProcessContainer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_10dp"
@@ -221,6 +221,46 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/ratingCardView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/shipmentProcessContainer">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_10dp"
+                        android:layout_marginLeft="@dimen/size_10dp"
+                        android:text="@string/rating_title"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_10dp"
+                            android:layout_marginLeft="@dimen/size_10dp"
+                            android:text="@string/rating_text"/>
+
+                        <androidx.appcompat.widget.AppCompatRatingBar
+                            android:id="@+id/ratingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_10dp"
+                            android:numStars="5"
+                            android:layout_marginLeft="@dimen/size_10dp"/>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/totalBalanceAmountTv"
                     android:layout_width="wrap_content"
@@ -237,16 +277,14 @@
                     android:id="@+id/totalBalanceTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_10dp"
-                    android:layout_marginTop="@dimen/size_20dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="@dimen/size_15dp"
                     android:text="@string/total_balance_text"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/ratingCardView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

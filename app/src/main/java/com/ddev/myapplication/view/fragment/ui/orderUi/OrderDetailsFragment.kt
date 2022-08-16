@@ -3,14 +3,21 @@ package com.ddev.myapplication.view.fragment.ui.orderUi
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddev.myapplication.adapter.OrderDetailsAdapter
 import com.ddev.myapplication.adapter.ShipmentProcessAdapter
 import com.ddev.myapplication.databinding.FragmentOrderDetailsBinding
 import com.ddev.myapplication.model.OrderModel
+import com.ddev.myapplication.model.ProductRatingModel
 import com.ddev.myapplication.util.PdfConverter
+import com.ddev.myapplication.util.dialog.ReviewDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.invoice_item_row.*
+import kotlinx.android.synthetic.main.rating_dialog.*
 
 
 class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentOrderDetailsBinding::inflate) {
@@ -22,6 +29,12 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
         ShipmentProcessAdapter()
     }
 
+    private lateinit var db: FirebaseFirestore
+    private lateinit var currentUser: FirebaseUser
+    private lateinit var currentUserId: String
+    private lateinit var userRating:String
+    private lateinit var ratingDialog: ReviewDialog
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -30,6 +43,12 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
             Log.e("Confirmation", "Confirmation")
             return
         }
+
+        ratingDialog = ReviewDialog(requireActivity(), fragmentBinding.mainRootView)
+
+        db = FirebaseFirestore.getInstance()
+        currentUser = FirebaseAuth.getInstance().currentUser!!
+        currentUserId = currentUser.uid
 
         buildUi(bundle)
     }
@@ -60,6 +79,16 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
 
         adapter.addItems(orderItem!!)
         shipmentAdapter.addItems(shipmentProcess!!)
+
+//        fragmentBinding.textView5.setOnClickListener {
+//            ratingDialog.show()
+//            ratingDialog.setOnRootClickListener{
+//                var userRating:String = ratingDialog.ratingBar.rating.toString()
+//                Toast.makeText(requireContext(),"rating$userRating",Toast.LENGTH_LONG).show()
+//                ratingDialog.dismiss()
+//            }
+//        }
+
 
         fragmentBinding.downloadInvoiceBtn.setOnClickListener {
             var invoiceItem = OrderModel(userId,orderId,orderItem,fullAddress,paymentType,orderPlaceDate,orderTotalPrice,orderProcess,shipmentProcess)
