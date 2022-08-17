@@ -37,7 +37,7 @@
                     android:numStars="5" />
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/ratingWrite"
+                    android:id="@+id/ratingNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/size_10dp"

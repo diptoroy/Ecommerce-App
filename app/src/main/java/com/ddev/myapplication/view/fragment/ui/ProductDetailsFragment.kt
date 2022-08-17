@@ -18,6 +18,7 @@ import com.ddev.myapplication.model.SpecModel
 import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
 import com.ddev.myapplication.listener.ClickListener
+import com.ddev.myapplication.model.ProductRatingModel
 import com.ddev.myapplication.util.dialog.CustomAlertDialog
 import com.ddev.myapplication.util.ViewPager2PageTransformation
 import com.ddev.myapplication.view.fragment.BaseFragment
@@ -25,6 +26,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.ktx.toObject
 
 
 class ProductDetailsFragment :
@@ -94,7 +96,6 @@ class ProductDetailsFragment :
         fragmentBinding.productNameText2.text = productName
         fragmentBinding.productPrice.text = "$$productPrice"
         fragmentBinding.productRating.text = productRating
-
 
         eventListener = db.collection("Users").document(currentUserId).collection("Favorite")
             .addSnapshotListener { value, error ->

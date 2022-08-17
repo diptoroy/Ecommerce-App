@@ -171,6 +171,8 @@
             app:argType="com.ddev.myapplication.model.OrderModel"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument android:name="isVisible"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/productCategoryFragment"

@@ -33,7 +33,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
     private lateinit var currentUser: FirebaseUser
     private lateinit var currentUserId: String
     private lateinit var userRating:String
-    private lateinit var ratingDialog: ReviewDialog
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,8 +43,6 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
             Log.e("Confirmation", "Confirmation")
             return
         }
-
-        ratingDialog = ReviewDialog(requireActivity(), fragmentBinding.mainRootView)
 
         db = FirebaseFirestore.getInstance()
         currentUser = FirebaseAuth.getInstance().currentUser!!
@@ -68,6 +66,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
         var shipmentAddress = args.orderDetails!!.address!!.addressDetail + ", " +args.orderDetails!!.address!!.cityName
         var orderTotalPrice = args.orderDetails!!.totalPrice
         var shipmentProcess = args.orderDetails!!.orderShipmentProcessModel
+        var isVisible = args.isVisible
 
         fragmentBinding.orderIdTv.text = "Order #$orderId"
         fragmentBinding.orderDateTv.text = "Placed on $orderPlaceDate"
@@ -77,18 +76,17 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(FragmentO
         fragmentBinding.totalBalanceAmountTv.text = "$$orderTotalPrice"
         fragmentBinding.processTv.text = orderProcess
 
+        if (orderItem != null) {
+            for (item in orderItem){
+                if (isVisible == 1){
+                    item.isReview = true
+                }else if (isVisible == 2){
+                    item.isReview = false
+                }
+            }
+        }
         adapter.addItems(orderItem!!)
         shipmentAdapter.addItems(shipmentProcess!!)
-
-//        fragmentBinding.textView5.setOnClickListener {
-//            ratingDialog.show()
-//            ratingDialog.setOnRootClickListener{
-//                var userRating:String = ratingDialog.ratingBar.rating.toString()
-//                Toast.makeText(requireContext(),"rating$userRating",Toast.LENGTH_LONG).show()
-//                ratingDialog.dismiss()
-//            }
-//        }
-
 
         fragmentBinding.downloadInvoiceBtn.setOnClickListener {
             var invoiceItem = OrderModel(userId,orderId,orderItem,fullAddress,paymentType,orderPlaceDate,orderTotalPrice,orderProcess,shipmentProcess)

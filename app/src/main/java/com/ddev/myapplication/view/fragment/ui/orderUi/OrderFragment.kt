@@ -61,7 +61,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(FragmentOrderBinding::i
 
     override fun onClick(item: OrderModel, position: Int) {
         var navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
-        var action = OrderUiFragmentDirections.actionOrderUiFragmentToOrderDetailsFragment(item)
+        var action = OrderUiFragmentDirections.actionOrderUiFragmentToOrderDetailsFragment(1,item)
         navController.navigate(action)
     }
 }

@@ -13,5 +13,6 @@ data class AddToCartModel(
     var productQuantity:Int? = null,
     var productPrice:Int? = null,
     var productSinglePrice:Int? = null,
-    var productOrderId:String? = null
+    var productOrderId:String? = null,
+    var isReview:Boolean? = null
 ):Parcelable

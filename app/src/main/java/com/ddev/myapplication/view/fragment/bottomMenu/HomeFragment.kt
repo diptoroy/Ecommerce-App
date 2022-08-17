@@ -29,6 +29,7 @@ import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
 import com.ddev.myapplication.view.fragment.ui.HomePageFragmentDirections
 import com.ddev.myapplication.view.viewmodel.DataReceiveViewModel
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
@@ -71,6 +72,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         categoryAdapter.addItems(category())
          //showTrendingProducts()
+        var total = 0F
+
+        db.collection("ProductRating").addSnapshotListener { value, error ->
+            for (doc: DocumentChange in value!!.documentChanges){
+                var data = doc.document.toObject(ProductRatingModel::class.java)
+                var rating = data.productRating
+                Log.i("RatingData", "buildUi: $data")
+            }
+
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             uiBuild()

@@ -53,8 +53,8 @@ class OrderGroupAdapter(var clickListener: ClickListener<OrderModel>) :
                     Log.i("modelData", "onBindViewHolder: $orderGroup")
                     orderGroup.forEach { modelData ->
                         orderItem = modelData.orderItem as ArrayList<AddToCartModel>
-                        adapter.addItems(orderItem)
-                        setUpRecyclerView(holder)
+                        //adapter.addItems(orderItem)
+                        //setUpRecyclerView(holder)
                     }
 
                 }
