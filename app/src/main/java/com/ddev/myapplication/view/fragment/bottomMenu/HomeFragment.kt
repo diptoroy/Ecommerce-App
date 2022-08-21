@@ -1,6 +1,5 @@
 package com.ddev.myapplication.view.fragment.bottomMenu
 
-import android.app.ActivityManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -11,7 +10,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ddev.myapplication.Application.EcommerceApp
 import com.ddev.myapplication.R
 import com.ddev.myapplication.adapter.CategoryAdapter
 import com.ddev.myapplication.adapter.ProductAdapter
@@ -23,7 +21,6 @@ import com.ddev.myapplication.model.product.ColorModel
 import com.ddev.myapplication.model.product.ProductModel
 import com.ddev.myapplication.model.product.ProductViewPagerModel
 import com.ddev.myapplication.util.PrefHelper
-import com.ddev.myapplication.util.dialog.CustomAlertDialog
 import com.ddev.myapplication.util.dialog.DynamicViewDialog
 import com.ddev.myapplication.util.dialog.LoadingDialog
 import com.ddev.myapplication.view.fragment.BaseFragment
@@ -33,10 +30,8 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import java.util.*
-import kotlin.math.log
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -76,7 +71,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         db.collection("ProductRating").addSnapshotListener { value, error ->
             for (doc: DocumentChange in value!!.documentChanges){
-                var data = doc.document.toObject(ProductRatingModel::class.java)
+                var data = doc.document.toObject(UserProductRatingModel::class.java)
                 var rating = data.productRating
                 Log.i("RatingData", "buildUi: $data")
             }

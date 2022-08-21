@@ -1,6 +1,6 @@
 package com.ddev.myapplication.model
 
-data class ProductRatingModel(
+data class UserProductRatingModel(
     var userId: String? = null,
     var productId: String? = null,
     var productRating: String? = null,
