@@ -1,16 +1,19 @@
 package com.ddev.myapplication.adapter
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.ddev.myapplication.Application.EcommerceApp
 import com.ddev.myapplication.R
 import com.ddev.myapplication.databinding.OrderItemRowBinding
 import com.ddev.myapplication.model.AddToCartModel
+import com.ddev.myapplication.model.OrderModel
 import com.ddev.myapplication.model.UserProductRatingModel
 import com.ddev.myapplication.model.product.ProductsRatingModel
 import com.ddev.myapplication.util.dialog.ReviewDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.rating_dialog.*
 
