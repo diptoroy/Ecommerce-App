@@ -69,15 +69,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
          //showTrendingProducts()
         var total = 0F
 
-        db.collection("ProductRating").addSnapshotListener { value, error ->
-            for (doc: DocumentChange in value!!.documentChanges){
-                var data = doc.document.toObject(UserProductRatingModel::class.java)
-                var rating = data.productRating
-                Log.i("RatingData", "buildUi: $data")
-            }
-
-        }
-
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             uiBuild()
         }

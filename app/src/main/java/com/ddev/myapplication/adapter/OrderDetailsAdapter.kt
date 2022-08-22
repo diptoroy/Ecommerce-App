@@ -15,7 +15,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.rating_dialog.*
+import kotlinx.coroutines.coroutineScope
 
 
 class OrderDetailsAdapter  () : BaseAdapter<AddToCartModel, OrderItemRowBinding>() {
@@ -51,7 +53,10 @@ class OrderDetailsAdapter  () : BaseAdapter<AddToCartModel, OrderItemRowBinding>
                     db.collection("Users").document(currentUserId).collection("ProductRating").add(ratingModel)
                     ratingData.add(ratingModel)
                     var productsRating = ProductsRatingModel(ratingData)
-                    db.collection("ProductRating").document(itemList[position]!!.productId!!).set(productsRating)
+                    db.collection("ProductRating").document(itemList[position]!!.productId!!)
+//                    db.collection("ProductRating").document(itemList[position]!!.productId!!).get().addOnSuccessListener {document->
+//                        var data = document.toObject(ProductsRatingModel::class.java)
+//                    }
                 }
                 Toast.makeText(EcommerceApp.getApp()!!.applicationContext, "rating$userRating", Toast.LENGTH_LONG).show()
                 ratingDialog.dismiss()
